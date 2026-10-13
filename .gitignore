@@ -1,0 +1,32 @@
+agents/*
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.coverage
+.mypy_cache/
+.tox/
+*.log
+htmlcov/
+
+# Segredos
+.env
+.env.*
+!.env.example
+
+# Dados e resultados locais
+data/
+reports/*
+!reports/README.md
+
+# IDE / SO
+.idea/
+.vscode/
+.DS_Store
