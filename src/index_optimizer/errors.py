@@ -21,3 +21,7 @@ class ConfigError(IndexOptimizerError):
 
 class NotImplementedYetError(IndexOptimizerError):
     exit_code = ExitCode.UNEXPECTED
+
+
+class ConnectionFailedError(IndexOptimizerError):
+    exit_code = ExitCode.CONNECTION_FAILURE

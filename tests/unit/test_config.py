@@ -9,7 +9,7 @@ BASE = {"IXO_DB_NAME": "lab", "IXO_DB_USER": "u", "IXO_DB_PASSWORD": "secret"}
 def test_defaults_are_local_lab():
     s = load_settings(BASE)
     assert s.db_host == "localhost"
-    assert s.db_port == 5432
+    assert s.db_port == 55432
     assert s.allowed_schemas == ("public",)
     assert s.is_lab
 

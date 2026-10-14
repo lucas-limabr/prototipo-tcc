@@ -8,6 +8,7 @@ from index_optimizer.errors import ConfigError
 
 LAB_ENVIRONMENT = "lab"
 LOCAL_HOSTS = frozenset({"localhost", "127.0.0.1", "::1"})
+DEFAULT_PORT = 55432
 _REQUIRED = ("IXO_DB_NAME", "IXO_DB_USER", "IXO_DB_PASSWORD")
 
 
@@ -17,11 +18,12 @@ class Settings:
     db_user: str
     db_password: str = field(repr=False)
     db_host: str = "localhost"
-    db_port: int = 5432
+    db_port: int = DEFAULT_PORT
     environment: str = LAB_ENVIRONMENT
     allowed_schemas: tuple[str, ...] = ("public",)
     statement_timeout_ms: int = 30_000
     lock_timeout_ms: int = 5_000
+    connect_timeout_s: int = 5
 
     @property
     def is_lab(self) -> bool:
@@ -52,7 +54,7 @@ def load_settings(env: Mapping[str, str] | None = None) -> Settings:
             + ". Copie .env.example para .env e carregue-o (ex.: set -a; source .env; set +a)."
         )
 
-    port = _positive_int(env, "IXO_DB_PORT", 5432)
+    port = _positive_int(env, "IXO_DB_PORT", DEFAULT_PORT)
     if port > 65535:
         raise ConfigError(f"IXO_DB_PORT fora do intervalo válido: {port}.")
 
@@ -72,4 +74,5 @@ def load_settings(env: Mapping[str, str] | None = None) -> Settings:
         allowed_schemas=schemas,
         statement_timeout_ms=_positive_int(env, "IXO_STATEMENT_TIMEOUT_MS", 30_000),
         lock_timeout_ms=_positive_int(env, "IXO_LOCK_TIMEOUT_MS", 5_000),
+        connect_timeout_s=_positive_int(env, "IXO_CONNECT_TIMEOUT_S", 5),
     )

@@ -22,6 +22,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
     sub = parser.add_subparsers(dest="command", metavar="COMANDO")
 
+    sub.add_parser("check-connection", help="Verifica a conexão com o banco de laboratório.")
+
     analyze = sub.add_parser("analyze", help="Valida, captura o plano e recomenda (sem alterar).")
     _add_query_source(analyze)
 
@@ -43,6 +45,17 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
+def _check_connection() -> int:
+    from index_optimizer.config import load_settings
+    from index_optimizer.database.connection import server_version
+
+    settings = load_settings()
+    version = server_version(settings)
+    print(f"Conectado a {settings.db_host}:{settings.db_port}/{settings.db_name}")
+    print(version)
+    return ExitCode.OK
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
@@ -52,6 +65,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         return ExitCode.OK
 
     try:
+        if args.command == "check-connection":
+            return _check_connection()
         raise NotImplementedYetError(
             f"O comando '{args.command}' ainda não está implementado nesta versão."
         )
