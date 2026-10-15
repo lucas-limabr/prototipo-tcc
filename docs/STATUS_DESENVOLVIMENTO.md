@@ -2,7 +2,7 @@
 
 ## Fase atual
 
-- **Número e nome:** Fase 4 — Seleção e preparação da massa de dados
+- **Número e nome:** Fase 5 — Conexão ao banco e inspeção do catálogo
 - **Estado:** Concluída
 - **Última atualização:** 2026-10-15
 
@@ -15,7 +15,7 @@
 | 2 — Estrutura Python | Concluída | CLI, configuração, empacotamento e testes iniciais |
 | 3 — PostgreSQL Docker | Concluída | `compose.yaml`, healthcheck e porta local restrita |
 | 4 — Massa de dados | Concluída | 1.000.000 empresas e 1.000.000 estabelecimentos carregados; socio não carregada |
-| 5 — Conexão e catálogo | Pendente | — |
+| 5 — Conexão e catálogo | Concluída | Catálogo lê schemas, tabelas, colunas, constraints e índices permitidos |
 | 6 — Validação SQL e EXPLAIN | Pendente | — |
 | 7 — Parser do plano | Pendente | — |
 | 8 — Extração de candidatos | Pendente | — |
@@ -47,6 +47,19 @@
 - Datas são normalizadas para `date`, aceitando `YYYYMMDD` e `DDMMYYYY`;
   valores criticamente inválidos são tratados como ausentes.
 
+## Entregas da Fase 5
+
+- `database/catalog.py` lê schemas, tabelas, colunas, constraints e índices
+  somente nos schemas permitidos.
+- A inspeção usa parâmetros PostgreSQL (`ANY(%s)`), sem concatenar nomes de
+  schemas, e roda em transação `READ ONLY`.
+- Testes unitários cobrem transformação dos metadados e escopo vazio.
+- Teste de integração cobre o schema `cnpj` do laboratório.
+- `pytest -m integration -q`: 2 testes de integração passaram.
+- `pytest -q`: 30 testes passaram; 2 testes de integração foram excluídos pelo
+  padrão.
+- Ruff lint e formatação passaram.
+
 ## Próxima atualização
 
-A próxima fase será a inspeção do catálogo PostgreSQL.
+A próxima fase será a validação segura de SQL e captura do plano estimado.
