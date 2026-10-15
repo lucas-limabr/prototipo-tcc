@@ -5,8 +5,9 @@ Automatizada para Maximização de Performance”**. Analisa consultas `SELECT` 
 recomenda índices por regras explícitas e, apenas em um banco de laboratório, permite
 aplicá-los e comparar o desempenho antes/depois.
 
-> Estado atual: estrutura base (Fase 2). Os subcomandos ainda não executam consultas.
-> Veja [docs/STATUS_DESENVOLVIMENTO.md](agents/docs/STATUS_DESENVOLVIMENTO.md).
+> Estado atual: preparação da massa CNPJ (Fase 4). Os subcomandos de análise
+> ainda não executam consultas.
+> Veja [docs/STATUS_DESENVOLVIMENTO.md](docs/STATUS_DESENVOLVIMENTO.md).
 
 ## Requisitos
 - Python ≥ 3.11
@@ -25,6 +26,12 @@ cp .env.example .env   # ajuste os valores; nunca versione o .env
 index-optimizer --help
 index-optimizer --version
 ```
+
+## Massa CNPJ
+
+O download e a carga da massa de benchmark são explícitos e mantêm os arquivos
+fora do Git. Consulte [docs/DADOS_BENCHMARK.md](docs/DADOS_BENCHMARK.md) para
+escolher uma referência mensal, baixar uma partição e validar as contagens.
 
 ## Qualidade
 ```bash

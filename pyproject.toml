@@ -24,6 +24,9 @@ index-optimizer = "index_optimizer.cli:main"
 [tool.setuptools.packages.find]
 where = ["src"]
 
+[tool.setuptools.package-data]
+index_optimizer = ["datasets/sql/*.sql"]
+
 [tool.ruff]
 line-length = 100
 target-version = "py311"

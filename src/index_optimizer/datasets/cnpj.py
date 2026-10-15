@@ -184,7 +184,13 @@ def _register(cur, table: str, files: list[Path], rows: int, manifest: dict) -> 
     )
 
 
-def load(reference: str, data_dir: Path) -> None:
+def load(
+    reference: str,
+    data_dir: Path,
+    resume: bool = False,
+    max_companies: int | None = None,
+    max_establishments: int | None = None,
+) -> None:
     source = data_dir / reference
     manifest_path = source / "manifest.json"
     if not manifest_path.exists():
@@ -193,6 +199,7 @@ def load(reference: str, data_dir: Path) -> None:
     parts = manifest["particoes_estabelecimentos"]
     settings = load_settings()
     with connect(settings) as conn:
+        conn.autocommit = True
         conn.execute("SET statement_timeout = 0")
         with conn.transaction(), conn.cursor() as cur:
             _run_sql(cur, "schema.sql")
@@ -200,30 +207,53 @@ def load(reference: str, data_dir: Path) -> None:
             with conn.transaction(), conn.cursor() as cur:
                 _staging(cur, "stg_lookup", 2)
                 rows = _copy_zip(cur, source / f"{prefix}.zip", "stg_lookup")
-                cur.execute(sql.SQL("TRUNCATE cnpj.{} CASCADE").format(sql.Identifier(table)))
+                if not resume:
+                    cur.execute(sql.SQL("TRUNCATE cnpj.{} CASCADE").format(sql.Identifier(table)))
                 cur.execute(
                     sql.SQL(
                         "INSERT INTO cnpj.{} (codigo, descricao) "
                         "SELECT DISTINCT ON (c0::int) c0::int, c1 FROM stg_lookup "
-                        "WHERE c0 ~ '^[0-9]+$' ORDER BY c0::int"
+                        "WHERE c0 ~ '^[0-9]+$' ORDER BY c0::int "
+                        "ON CONFLICT (codigo) DO UPDATE SET descricao = EXCLUDED.descricao"
                     ).format(sql.Identifier(table))
                 )
                 _register(cur, table, [source / f"{prefix}.zip"], cur.rowcount, manifest)
                 print(f"[carga] {table}: {cur.rowcount} linhas (lidas {rows})", flush=True)
         with conn.transaction(), conn.cursor() as cur:
-            cur.execute("TRUNCATE cnpj.socio, cnpj.estabelecimento, cnpj.empresa")
-        _load_main(
-            conn, source, manifest, "estabelecimento", 30,
-            [f"Estabelecimentos{p}.zip" for p in parts], "insert_estabelecimento.sql",
-        )
-        _load_main(
-            conn, source, manifest, "empresa", 7,
-            [f"Empresas{i}.zip" for i in range(10)], "insert_empresa.sql",
-        )
-        _load_main(
-            conn, source, manifest, "socio", 11,
-            [f"Socios{i}.zip" for i in range(10)], "insert_socio.sql",
-        )
+            if not resume:
+                cur.execute("TRUNCATE cnpj.socio, cnpj.estabelecimento, cnpj.empresa")
+        if max_companies is not None or max_establishments is not None:
+            if max_companies is None or max_establishments is None:
+                raise DatasetError(
+                    "Os limites de empresa e estabelecimento devem ser informados juntos."
+                )
+            _load_limited(
+                conn,
+                source,
+                manifest,
+                parts,
+                max_companies,
+                max_establishments,
+            )
+        else:
+            _load_main(
+                conn,
+                source,
+                manifest,
+                "empresa",
+                7,
+                [f"Empresas{i}.zip" for i in range(10)],
+                "insert_empresa.sql",
+            )
+            _load_main(
+                conn,
+                source,
+                manifest,
+                "estabelecimento",
+                30,
+                [f"Estabelecimentos{p}.zip" for p in parts],
+                "insert_estabelecimento.sql",
+            )
         with conn.transaction(), conn.cursor() as cur:
             _run_sql(cur, "finalize.sql")
         conn.autocommit = True
@@ -242,6 +272,70 @@ def _load_main(conn, source, manifest, table, columns, files, insert_sql) -> Non
             print(f"[carga] {table} <- {name}: {cur.rowcount} inseridas (lidas {read})", flush=True)
     with conn.transaction(), conn.cursor() as cur:
         _register(cur, table, [source / f for f in files], total, manifest)
+
+
+def _load_limited(conn, source, manifest, parts, max_companies, max_establishments) -> None:
+    if max_companies <= 0 or max_establishments <= 0:
+        raise DatasetError("Os limites de carga devem ser maiores que zero.")
+    with conn.transaction(), conn.cursor() as cur:
+        _staging(cur, "stg_establishment_source", 30)
+        read = _copy_zip(
+            cur,
+            source / f"Estabelecimentos{parts[0]}.zip",
+            "stg_establishment_source",
+        )
+        cur.execute(
+            """
+            CREATE TEMP TABLE selected_cnpj ON COMMIT PRESERVE ROWS AS
+            SELECT DISTINCT c0 AS cnpj_basico
+            FROM stg_establishment_source
+            WHERE NULLIF(trim(c0), '') IS NOT NULL
+            ORDER BY c0
+            LIMIT %s
+            """,
+            (max_companies,),
+        )
+        cur.execute("CREATE UNIQUE INDEX selected_cnpj_pk ON selected_cnpj (cnpj_basico)")
+        selected = cur.execute("SELECT count(*) FROM selected_cnpj").fetchone()[0]
+        cur.execute(
+            """
+            CREATE TEMP TABLE selected_establishment ON COMMIT PRESERVE ROWS AS
+            SELECT source.*
+            FROM stg_establishment_source source
+            JOIN selected_cnpj selected ON selected.cnpj_basico = source.c0
+            ORDER BY source.c0, source.c1, source.c2
+            LIMIT %s
+            """,
+            (max_establishments,),
+        )
+        cur.execute("CREATE INDEX selected_establishment_cnpj_idx ON selected_establishment (c0)")
+        print(f"[seleção] {selected} empresas com estabelecimento (lidas {read})", flush=True)
+
+    _load_main(
+        conn,
+        source,
+        manifest,
+        "empresa",
+        7,
+        [f"Empresas{i}.zip" for i in range(10)],
+        "insert_empresa_limited.sql",
+    )
+    total = 0
+    with conn.transaction(), conn.cursor() as cur:
+        _run_sql(cur, "insert_estabelecimento_limited.sql")
+        total = cur.rowcount
+        print(
+            f"[carga] estabelecimento: {total} inseridas (limite {max_establishments})",
+            flush=True,
+        )
+    with conn.transaction(), conn.cursor() as cur:
+        _register(
+            cur,
+            "estabelecimento",
+            [source / f"Estabelecimentos{p}.zip" for p in parts],
+            total,
+            manifest,
+        )
 
 
 def validate() -> int:
@@ -265,6 +359,17 @@ def build_parser() -> argparse.ArgumentParser:
     down.add_argument("--parts", type=int, nargs="+", default=[1])
     loader = sub.add_parser("load", help="Carrega (idempotente) os arquivos no schema cnpj.")
     loader.add_argument("--reference", required=True)
+    loader.add_argument(
+        "--resume",
+        action="store_true",
+        help="Retoma sem truncar tabelas já carregadas (reprocessa arquivos com upsert).",
+    )
+    loader.add_argument("--max-companies", type=int, help="Limite de empresas no modo limitado.")
+    loader.add_argument(
+        "--max-establishments",
+        type=int,
+        help="Limite de estabelecimentos no modo limitado.",
+    )
     sub.add_parser("validate", help="Confere contagens e integridade da carga.")
     return parser
 
@@ -276,7 +381,13 @@ def main(argv: Sequence[str] | None = None) -> int:
             download(args.reference, args.parts, args.data_dir)
             return 0
         if args.command == "load":
-            load(args.reference, args.data_dir)
+            load(
+                args.reference,
+                args.data_dir,
+                args.resume,
+                args.max_companies,
+                args.max_establishments,
+            )
             return 0
         return validate()
     except IndexOptimizerError as exc:

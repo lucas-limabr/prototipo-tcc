@@ -1,0 +1,9 @@
+ANALYZE cnpj.empresa;
+ANALYZE cnpj.estabelecimento;
+ANALYZE cnpj.socio;
+ANALYZE cnpj.cnae;
+ANALYZE cnpj.motivo_situacao;
+ANALYZE cnpj.municipio;
+ANALYZE cnpj.natureza_juridica;
+ANALYZE cnpj.pais;
+ANALYZE cnpj.qualificacao_socio;
