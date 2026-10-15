@@ -25,3 +25,11 @@ class NotImplementedYetError(IndexOptimizerError):
 
 class ConnectionFailedError(IndexOptimizerError):
     exit_code = ExitCode.CONNECTION_FAILURE
+
+
+class UnsupportedQueryError(IndexOptimizerError):
+    exit_code = ExitCode.UNSUPPORTED_QUERY
+
+
+class QueryTimeoutError(IndexOptimizerError):
+    exit_code = ExitCode.TIMEOUT
