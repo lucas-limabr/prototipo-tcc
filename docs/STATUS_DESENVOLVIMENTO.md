@@ -2,7 +2,7 @@
 
 ## Fase atual
 
-- **Número e nome:** Fase 8 — Extração de oportunidades de indexação
+- **Número e nome:** Fase 9 — Motor de recomendação e explicabilidade
 - **Estado:** Concluída
 - **Última atualização:** 2026-10-16
 
@@ -19,7 +19,7 @@
 | 6 — Validação SQL e EXPLAIN | Concluída | `database/query_validation.py`, `database/explain.py` e testes unitários |
 | 7 — Parser do plano | Concluída | `database/plan_parser.py` e testes unitários |
 | 8 — Extração de candidatos | Concluída | `database/opportunities.py` e testes unitários |
-| 9 — Motor de recomendação | Pendente | — |
+| 9 — Motor de recomendação | Concluída | `database/recommendations.py` e testes unitários |
 | 10–15 — Benchmark e integração | Pendente | — |
 
 ## Entregas da Fase 4
@@ -98,3 +98,14 @@ A próxima fase será a extração de oportunidades de indexação.
 - Índices existentes equivalentes são marcados e não tratados como ausentes;
   a função somente extrai candidatos e não cria nem recomenda índices.
 - Regras ambíguas ou sem relação verificável são ignoradas.
+
+## Entregas da Fase 9
+
+- `database/recommendations.py` aplica regras determinísticas e conservadoras
+  sobre oportunidades já extraídas, sem executar DDL ou alterar o banco.
+- Os estados são explícitos: `RECOMENDADO`, `NAO_RECOMENDADO`,
+  `INDETERMINADO` e `JA_EXISTE_EQUIVALENTE`.
+- Filtros e condições de junção podem gerar recomendações B-tree simples;
+  ordenação isolada permanece indeterminada por não provar benefício.
+- Cada resultado contém tabela, coluna, evidência, justificativa e limitações,
+  inclusive quando não há recomendações.
