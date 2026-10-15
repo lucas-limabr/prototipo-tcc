@@ -2,7 +2,7 @@
 
 ## Fase atual
 
-- **Número e nome:** Fase 6 — Validação SQL e EXPLAIN
+- **Número e nome:** Fase 7 — Parser do plano JSON e modelo interno
 - **Estado:** Concluída
 - **Última atualização:** 2026-10-16
 
@@ -17,7 +17,7 @@
 | 4 — Massa de dados | Concluída | 1.000.000 empresas e 1.000.000 estabelecimentos carregados; socio não carregada |
 | 5 — Conexão e catálogo | Concluída | Catálogo lê schemas, tabelas, colunas, constraints e índices permitidos |
 | 6 — Validação SQL e EXPLAIN | Concluída | `database/query_validation.py`, `database/explain.py` e testes unitários |
-| 7 — Parser do plano | Pendente | — |
+| 7 — Parser do plano | Concluída | `database/plan_parser.py` e testes unitários |
 | 8 — Extração de candidatos | Pendente | — |
 | 9 — Motor de recomendação | Pendente | — |
 | 10–15 — Benchmark e integração | Pendente | — |
@@ -62,7 +62,7 @@
 
 ## Próxima atualização
 
-A próxima fase será o parser do plano estimado, sem execução da consulta.
+A próxima fase será a extração de oportunidades de indexação.
 
 ## Entregas da Fase 6
 
@@ -78,3 +78,13 @@ A próxima fase será o parser do plano estimado, sem execução da consulta.
   Ruff lint e formatação passaram.
 - A senha persistida do usuário `index_lab_user` foi alinhada à configuração do
   `.env` sem recriar o volume; os três testes de integração passaram.
+
+## Entregas da Fase 7
+
+- `database/plan_parser.py` transforma o JSON do PostgreSQL em `QueryPlan`,
+  `PlanNode`, `RelationRef` e `PlanCondition`, preservando a resposta original.
+- O parser percorre nós filhos recursivamente e extrai relação, alias, custos,
+  cardinalidade estimada, filtros, condições de índice/junção e chaves de ordenação.
+- Campos opcionais permanecem ausentes sem falha; estruturas malformadas são
+  rejeitadas explicitamente.
+- Fixtures unitárias cobrem `Seq Scan`, `Index Scan`, `Nested Loop` e `Sort`.
