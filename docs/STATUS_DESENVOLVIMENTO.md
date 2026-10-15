@@ -2,7 +2,7 @@
 
 ## Fase atual
 
-- **Número e nome:** Fase 7 — Parser do plano JSON e modelo interno
+- **Número e nome:** Fase 8 — Extração de oportunidades de indexação
 - **Estado:** Concluída
 - **Última atualização:** 2026-10-16
 
@@ -18,7 +18,7 @@
 | 5 — Conexão e catálogo | Concluída | Catálogo lê schemas, tabelas, colunas, constraints e índices permitidos |
 | 6 — Validação SQL e EXPLAIN | Concluída | `database/query_validation.py`, `database/explain.py` e testes unitários |
 | 7 — Parser do plano | Concluída | `database/plan_parser.py` e testes unitários |
-| 8 — Extração de candidatos | Pendente | — |
+| 8 — Extração de candidatos | Concluída | `database/opportunities.py` e testes unitários |
 | 9 — Motor de recomendação | Pendente | — |
 | 10–15 — Benchmark e integração | Pendente | — |
 
@@ -88,3 +88,13 @@ A próxima fase será a extração de oportunidades de indexação.
 - Campos opcionais permanecem ausentes sem falha; estruturas malformadas são
   rejeitadas explicitamente.
 - Fixtures unitárias cobrem `Seq Scan`, `Index Scan`, `Nested Loop` e `Sort`.
+
+## Entregas da Fase 8
+
+- `database/opportunities.py` extrai oportunidades B-tree de uma coluna a partir
+  de filtros, condições de junção e chaves de ordenação.
+- Cada oportunidade mantém tabela, coluna, evidência textual e justificativa,
+  com verificação da coluna no catálogo.
+- Índices existentes equivalentes são marcados e não tratados como ausentes;
+  a função somente extrai candidatos e não cria nem recomenda índices.
+- Regras ambíguas ou sem relação verificável são ignoradas.
