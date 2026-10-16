@@ -2,7 +2,7 @@
 
 ## Fase atual
 
-- **Número e nome:** Fase 13 — Relatórios e rastreabilidade do experimento
+- **Número e nome:** Fase 14 — Testes de integração e fluxo completo
 - **Estado:** Concluída
 - **Última atualização:** 2026-10-16
 
@@ -24,7 +24,8 @@
 | 11 — Aplicação controlada de índices | Concluída | `database/index_apply.py` e testes unitários |
 | 12 — Medição pós-indexação | Concluída | `database/comparison.py` e testes unitários |
 | 13 — Relatórios e rastreabilidade | Concluída | `database/reporting.py` e testes unitários |
-| 14–15 — Benchmark e integração | Pendente | — |
+| 14 — Testes de integração e fluxo completo | Concluída | `tests/integration/test_full_flow.py` e suíte de integração |
+| 15 — Experimentos finais e documentação acadêmica | Pendente | — |
 
 ## Entregas da Fase 4
 
@@ -164,3 +165,17 @@ A próxima fase será a extração de oportunidades de indexação.
   recomendado do que foi realmente aplicado.
 - Credenciais não são incluídas; o identificador usa somente consulta e condição
   experimental.
+## Entregas da Fase 14
+
+- `tests/integration/test_full_flow.py` cobre, com schema temporário e dados
+  determinísticos, validação, `EXPLAIN`, parsing, extração de oportunidades,
+  recomendação, benchmark, *dry run* e aplicação explícita de índice.
+- O fluxo verifica o índice criado no catálogo e remove o schema de fixture ao
+  final de cada teste.
+- Uma consulta sem filtro não gera oportunidade, recomendação, DDL ou alteração
+  estrutural.
+- Os testes de integração permanecem separados dos testes unitários e não usam
+  a massa pública volumosa.
+- `ruff check src tests`, `ruff format --check src tests` e `pytest -q`
+  passaram; a execução `pytest -m integration -q` depende das variáveis
+  `IXO_DB_*` e do PostgreSQL de laboratório ativo.
