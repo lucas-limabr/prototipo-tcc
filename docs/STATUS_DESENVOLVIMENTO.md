@@ -2,7 +2,7 @@
 
 ## Fase atual
 
-- **Número e nome:** Fase 10 — Medição de desempenho pré-indexação
+- **Número e nome:** Fase 11 — Geração e aplicação controlada de índices
 - **Estado:** Concluída
 - **Última atualização:** 2026-10-16
 
@@ -21,7 +21,8 @@
 | 8 — Extração de candidatos | Concluída | `database/opportunities.py` e testes unitários |
 | 9 — Motor de recomendação | Concluída | `database/recommendations.py` e testes unitários |
 | 10 — Medição pré-indexação | Concluída | `database/benchmark.py` e testes unitários |
-| 11–15 — Benchmark e integração | Pendente | — |
+| 11 — Aplicação controlada de índices | Concluída | `database/index_apply.py` e testes unitários |
+| 12–15 — Benchmark e integração | Pendente | — |
 
 ## Entregas da Fase 4
 
@@ -125,3 +126,13 @@ A próxima fase será a extração de oportunidades de indexação.
   Ruff lint e formatação passaram.
 - Medição real no laboratório: 2 execuções válidas, 1 aquecimento, consulta
   `SELECT cnpj_basico FROM cnpj.empresa LIMIT 1`, média de 0,079 ms no servidor.
+
+## Entregas da Fase 11
+
+- `database/index_apply.py` gera DDL com composição segura de identificadores,
+  nomes determinísticos limitados a 63 caracteres e modo `dry_run`.
+- A aplicação exige confirmação explícita, restringe-se ao ambiente de laboratório
+  e revalida índices equivalentes imediatamente antes de cada criação.
+- Cada índice é aplicado individualmente; após a criação, a tabela recebe
+  `ANALYZE`. Falhas são registradas sem declarar o índice como criado e não há
+  `DROP INDEX` automático.

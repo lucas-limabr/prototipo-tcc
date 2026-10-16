@@ -33,3 +33,7 @@ class UnsupportedQueryError(IndexOptimizerError):
 
 class QueryTimeoutError(IndexOptimizerError):
     exit_code = ExitCode.TIMEOUT
+
+
+class IndexApplicationError(IndexOptimizerError):
+    exit_code = ExitCode.INDEX_APPLY_FAILURE
