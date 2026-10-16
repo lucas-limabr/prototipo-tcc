@@ -97,6 +97,7 @@ centenas de gigabytes de armazenamento temporário em algumas referências e nã
   resultam em `NULL`; campos vazios opcionais permanecem ausentes.
 - A validação de contagem não é uma garantia de completude nacional quando
   apenas uma partição foi importada.
-- A execução desta fase preparou e validou o schema e o procedimento, mas a
-  carga no PostgreSQL ficou bloqueada pela indisponibilidade do daemon Docker
-  neste ambiente; as contagens finais ainda dependem da importação.
+- A primeira tentativa de carga foi interrompida pela indisponibilidade
+  temporária do daemon Docker. A carga foi posteriormente retomada e concluída;
+  as contagens efetivas estão registradas no manifesto e no status do
+  desenvolvimento.

@@ -45,9 +45,9 @@
 - A referência remota `2026-10` foi listada; a seleção `--parts 1` tem ~2,26 GiB.
 - O download foi concluído em `/home/lucaslima/cnpj-data/2026-10` com manifesto e
   hashes.
-- O banco PostgreSQL foi iniciado e o schema CNPJ validado antes do daemon Docker
-  ficar indisponível para a continuação da carga.
-- Carga limitada concluída no PostgreSQL: `empresa` 1.000.000,
+- A primeira tentativa foi interrompida pela indisponibilidade temporária do
+  daemon Docker; a execução foi retomada posteriormente no laboratório.
+- Carga limitada concluída e validada no PostgreSQL: `empresa` 1.000.000,
   `estabelecimento` 1.000.000 e `socio` 0.
 - Datas são normalizadas para `date`, aceitando `YYYYMMDD` e `DDMMYYYY`;
   valores criticamente inválidos são tratados como ausentes.
@@ -65,9 +65,10 @@
   padrão.
 - Ruff lint e formatação passaram.
 
-## Próxima atualização
+## Histórico
 
-A próxima fase será a extração de oportunidades de indexação.
+As notas de execução das fases iniciais são mantidas como histórico. O estado
+vigente e a próxima etapa estão registrados no cabeçalho e na tabela de fases.
 
 ## Entregas da Fase 6
 

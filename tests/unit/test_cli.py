@@ -1,3 +1,5 @@
+from unittest.mock import patch
+
 import pytest
 
 from index_optimizer import __version__
@@ -26,9 +28,22 @@ def test_no_command_prints_help(capsys):
     assert "usage" in capsys.readouterr().out
 
 
-def test_subcommand_not_implemented(capsys):
-    assert main(["analyze", "--query", "SELECT 1"]) == ExitCode.UNEXPECTED
-    assert "não está implementado" in capsys.readouterr().err
+@patch("index_optimizer.cli._run_analyze", return_value=ExitCode.OK)
+def test_analyze_dispatches_to_implementation(run_analyze):
+    assert main(["analyze", "--query", "SELECT 1"]) == ExitCode.OK
+    run_analyze.assert_called_once()
+
+
+@patch("index_optimizer.cli._run_benchmark", return_value=ExitCode.OK)
+def test_benchmark_dispatches_to_implementation(run_benchmark):
+    assert main(["benchmark", "--query", "SELECT 1"]) == ExitCode.OK
+    run_benchmark.assert_called_once()
+
+
+@patch("index_optimizer.cli._run_optimize", return_value=ExitCode.OK)
+def test_optimize_dispatches_to_implementation(run_optimize):
+    assert main(["optimize", "--query", "SELECT 1", "--dry-run"]) == ExitCode.OK
+    run_optimize.assert_called_once()
 
 
 def test_query_source_required():

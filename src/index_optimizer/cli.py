@@ -1,11 +1,13 @@
 from __future__ import annotations
 
 import argparse
+import json
 import sys
 from collections.abc import Sequence
+from pathlib import Path
 
 from index_optimizer import __version__
-from index_optimizer.errors import ExitCode, IndexOptimizerError, NotImplementedYetError
+from index_optimizer.errors import ExitCode, IndexOptimizerError
 
 
 def _add_query_source(parser: argparse.ArgumentParser) -> None:
@@ -56,6 +58,115 @@ def _check_connection() -> int:
     return ExitCode.OK
 
 
+def _read_query(args: argparse.Namespace) -> str:
+    if args.query is not None:
+        return args.query
+    return Path(args.query_file).read_text(encoding="utf-8")
+
+
+def _analysis(query: str, settings):
+    from index_optimizer.database.catalog import inspect_database_catalog
+    from index_optimizer.database.explain import explain_query
+    from index_optimizer.database.opportunities import extract_opportunities
+    from index_optimizer.database.plan_parser import parse_plan
+    from index_optimizer.database.recommendations import recommend_indexes
+
+    estimated = explain_query(settings, query, allowed_schemas=set(settings.allowed_schemas))
+    catalog = inspect_database_catalog(settings)
+    opportunities = extract_opportunities(parse_plan(estimated.raw), catalog)
+    recommendations = recommend_indexes(opportunities)
+    return estimated, recommendations
+
+
+def _report_for_analysis(query: str, settings):
+    from index_optimizer.database.reporting import build_report
+
+    estimated, recommendations = _analysis(query, settings)
+    return build_report(
+        query,
+        condition={"command": "analyze", "environment": settings.environment},
+        estimated_plan=estimated.raw,
+        recommendations=recommendations.recommendations,
+        limitations=("A análise não altera a estrutura do banco.",),
+    )
+
+
+def _run_analyze(args: argparse.Namespace) -> int:
+    from index_optimizer.config import load_settings
+    from index_optimizer.database.reporting import report_to_json
+
+    report = _report_for_analysis(_read_query(args), load_settings())
+    print(report_to_json(report))
+    return ExitCode.OK
+
+
+def _run_benchmark(args: argparse.Namespace) -> int:
+    from index_optimizer.config import load_settings
+    from index_optimizer.database.benchmark import benchmark_query
+    from index_optimizer.database.reporting import build_report, report_to_json
+
+    settings = load_settings()
+    query = _read_query(args)
+    benchmark = benchmark_query(
+        settings,
+        query,
+        runs=args.runs,
+        warmups=args.warmup,
+        allowed_schemas=set(settings.allowed_schemas),
+    )
+    report = build_report(
+        query,
+        condition={
+            "command": "benchmark",
+            "environment": settings.environment,
+            "runs": args.runs,
+            "warmups": args.warmup,
+        },
+        baseline=benchmark,
+    )
+    print(report_to_json(report))
+    return ExitCode.OK
+
+
+def _run_optimize(args: argparse.Namespace) -> int:
+    from index_optimizer.config import load_settings
+    from index_optimizer.database.connection import connect
+    from index_optimizer.database.index_apply import apply_indexes, dry_run, render_ddl
+    from index_optimizer.database.reporting import build_report, report_to_json
+
+    settings = load_settings()
+    query = _read_query(args)
+    estimated, recommendations = _analysis(query, settings)
+    ddls = dry_run(recommendations.recommendations)
+    with connect(settings) as connection:
+        rendered_ddls = [render_ddl(ddl, connection) for ddl in ddls]
+    applied = (
+        apply_indexes(settings, recommendations.recommendations, apply=True)
+        if args.apply_indexes
+        else ()
+    )
+    report = build_report(
+        query,
+        condition={
+            "command": "optimize",
+            "environment": settings.environment,
+            "mode": "apply" if args.apply_indexes else "dry-run",
+        },
+        estimated_plan=estimated.raw,
+        recommendations=recommendations.recommendations,
+        applied_indexes=applied,
+        limitations=(
+            "O modo dry-run não modifica o banco."
+            if not args.apply_indexes
+            else "A aplicação foi autorizada explicitamente no laboratório.",
+        ),
+    )
+    payload = json.loads(report_to_json(report))
+    payload["dry_run"] = rendered_ddls
+    print(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True))
+    return ExitCode.OK
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
@@ -67,9 +178,12 @@ def main(argv: Sequence[str] | None = None) -> int:
     try:
         if args.command == "check-connection":
             return _check_connection()
-        raise NotImplementedYetError(
-            f"O comando '{args.command}' ainda não está implementado nesta versão."
-        )
+        if args.command == "analyze":
+            return _run_analyze(args)
+        if args.command == "benchmark":
+            return _run_benchmark(args)
+        if args.command == "optimize":
+            return _run_optimize(args)
     except IndexOptimizerError as exc:
         print(f"erro: {exc}", file=sys.stderr)
         return exc.exit_code
