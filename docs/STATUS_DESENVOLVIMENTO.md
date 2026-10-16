@@ -2,7 +2,7 @@
 
 ## Fase atual
 
-- **Número e nome:** Fase 12 — Medição pós-indexação e comparação
+- **Número e nome:** Fase 13 — Relatórios e rastreabilidade do experimento
 - **Estado:** Concluída
 - **Última atualização:** 2026-10-16
 
@@ -23,7 +23,8 @@
 | 10 — Medição pré-indexação | Concluída | `database/benchmark.py` e testes unitários |
 | 11 — Aplicação controlada de índices | Concluída | `database/index_apply.py` e testes unitários |
 | 12 — Medição pós-indexação | Concluída | `database/comparison.py` e testes unitários |
-| 13–15 — Benchmark e integração | Pendente | — |
+| 13 — Relatórios e rastreabilidade | Concluída | `database/reporting.py` e testes unitários |
+| 14–15 — Benchmark e integração | Pendente | — |
 
 ## Entregas da Fase 4
 
@@ -153,3 +154,13 @@ A próxima fase será a extração de oportunidades de indexação.
 - Comparação real no laboratório, sem criação de índice: duas medições antes e
   duas depois da mesma consulta; resultado observado `REGRESSAO` de 0,080 ms
   para 0,088 ms (-10,62%). Esse resultado não atribui causalidade a índice.
+
+## Entregas da Fase 13
+
+- `database/reporting.py` gera relatório estruturado em JSON e Markdown, com
+  identificador determinístico do experimento, condição experimental, consulta,
+  plano, recomendações, medições, comparação, índices aplicados e limitações.
+- O relatório explicita quando não há recomendações e distingue o que foi apenas
+  recomendado do que foi realmente aplicado.
+- Credenciais não são incluídas; o identificador usa somente consulta e condição
+  experimental.
