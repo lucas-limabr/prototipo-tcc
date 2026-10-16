@@ -2,7 +2,7 @@
 
 ## Fase atual
 
-- **Número e nome:** Fase 11 — Geração e aplicação controlada de índices
+- **Número e nome:** Fase 12 — Medição pós-indexação e comparação
 - **Estado:** Concluída
 - **Última atualização:** 2026-10-16
 
@@ -22,7 +22,8 @@
 | 9 — Motor de recomendação | Concluída | `database/recommendations.py` e testes unitários |
 | 10 — Medição pré-indexação | Concluída | `database/benchmark.py` e testes unitários |
 | 11 — Aplicação controlada de índices | Concluída | `database/index_apply.py` e testes unitários |
-| 12–15 — Benchmark e integração | Pendente | — |
+| 12 — Medição pós-indexação | Concluída | `database/comparison.py` e testes unitários |
+| 13–15 — Benchmark e integração | Pendente | — |
 
 ## Entregas da Fase 4
 
@@ -136,3 +137,19 @@ A próxima fase será a extração de oportunidades de indexação.
 - Cada índice é aplicado individualmente; após a criação, a tabela recebe
   `ANALYZE`. Falhas são registradas sem declarar o índice como criado e não há
   `DROP INDEX` automático.
+
+## Entregas da Fase 12
+
+- `database/comparison.py` compara medianas do servidor usando exatamente a
+  mesma consulta e protocolo da linha de base.
+- O relatório calcula redução percentual e speedup, distinguindo melhoria,
+  regressão, ausência de mudança relevante e resultado inconclusivo.
+- A comparação verifica quantidade de linhas observadas, registra mudança de
+  plano quando os planos foram fornecidos e relaciona índices realmente criados.
+- O relatório explicita limitações e não afirma causalidade ou significância
+  estatística além do desenho experimental.
+- `pytest -q`: 65 passaram, 3 testes de integração foram excluídos pelo padrão;
+  Ruff lint e formatação passaram.
+- Comparação real no laboratório, sem criação de índice: duas medições antes e
+  duas depois da mesma consulta; resultado observado `REGRESSAO` de 0,080 ms
+  para 0,088 ms (-10,62%). Esse resultado não atribui causalidade a índice.
