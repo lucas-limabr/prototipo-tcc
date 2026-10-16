@@ -2,7 +2,7 @@
 
 ## Fase atual
 
-- **Número e nome:** Fase 9 — Motor de recomendação e explicabilidade
+- **Número e nome:** Fase 10 — Medição de desempenho pré-indexação
 - **Estado:** Concluída
 - **Última atualização:** 2026-10-16
 
@@ -20,7 +20,8 @@
 | 7 — Parser do plano | Concluída | `database/plan_parser.py` e testes unitários |
 | 8 — Extração de candidatos | Concluída | `database/opportunities.py` e testes unitários |
 | 9 — Motor de recomendação | Concluída | `database/recommendations.py` e testes unitários |
-| 10–15 — Benchmark e integração | Pendente | — |
+| 10 — Medição pré-indexação | Concluída | `database/benchmark.py` e testes unitários |
+| 11–15 — Benchmark e integração | Pendente | — |
 
 ## Entregas da Fase 4
 
@@ -109,3 +110,18 @@ A próxima fase será a extração de oportunidades de indexação.
   ordenação isolada permanece indeterminada por não provar benefício.
 - Cada resultado contém tabela, coluna, evidência, justificativa e limitações,
   inclusive quando não há recomendações.
+
+## Entregas da Fase 10
+
+- `database/benchmark.py` executa aquecimentos separados das medições,
+  repetições configuráveis e somente conta execuções válidas.
+- Cada medição usa `EXPLAIN (ANALYZE, BUFFERS, FORMAT JSON)` após nova validação
+  da consulta e em transação `READ ONLY`, registrando tempo do servidor, linhas
+  observadas, buffers e erros separados dos tempos.
+- O resumo inclui média, mediana, mínimo, máximo e desvio padrão em milissegundos.
+- A execução exige pelo menos duas medições válidas e não confunde timeout ou
+  erro com tempo de desempenho.
+- `pytest -q`: 59 passaram, 3 testes de integração foram excluídos pelo padrão;
+  Ruff lint e formatação passaram.
+- Medição real no laboratório: 2 execuções válidas, 1 aquecimento, consulta
+  `SELECT cnpj_basico FROM cnpj.empresa LIMIT 1`, média de 0,079 ms no servidor.
