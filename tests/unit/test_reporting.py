@@ -1,5 +1,11 @@
 import json
+from datetime import UTC, datetime
 
+from index_optimizer.database.index_apply import IndexApplyResult, generate_index_ddl
+from index_optimizer.database.recommendations import (
+    IndexRecommendation,
+    RecommendationStatus,
+)
 from index_optimizer.database.reporting import build_report, report_to_json, report_to_markdown
 
 
@@ -30,3 +36,26 @@ def test_markdown_explicitly_reports_empty_recommendations():
 
     assert "Nenhuma recomendação registrada." in markdown
     assert report.experiment_id in markdown
+
+
+def test_json_serializes_applied_index_ddl():
+    recommendation = IndexRecommendation(
+        schema="public",
+        table="items",
+        columns=("category",),
+        access_method="btree",
+        status=RecommendationStatus.RECOMMENDED,
+        justification="Filtro observado.",
+        limitations=(),
+        evidence_kind="Filter",
+        evidence="category = 'target'",
+    )
+    ddl = generate_index_ddl(recommendation)
+    assert ddl is not None
+    result = IndexApplyResult(ddl, "CREATED", datetime.now(UTC), "ok")
+
+    payload = json.loads(
+        report_to_json(build_report("SELECT 1", condition={}, applied_indexes=(result,)))
+    )
+
+    assert payload["applied_indexes"][0]["ddl"]["name"] == ddl.name

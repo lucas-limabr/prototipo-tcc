@@ -120,6 +120,8 @@ def _json_safe(value: Any) -> Any:
         return value.value
     if isinstance(value, datetime):
         return value.isoformat()
+    if value.__class__.__module__.startswith("psycopg.sql"):
+        return str(value)
     if hasattr(value, "__dataclass_fields__"):
         return _json_safe(asdict(value))
     return value

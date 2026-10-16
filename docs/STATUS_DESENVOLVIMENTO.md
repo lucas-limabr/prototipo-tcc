@@ -2,9 +2,9 @@
 
 ## Fase atual
 
-- **Número e nome:** Fase 14 — Testes de integração e fluxo completo
+- **Número e nome:** Fase 15 — Experimentos finais e documentação acadêmica
 - **Estado:** Concluída
-- **Última atualização:** 2026-10-16
+- **Última atualização:** 2026-10-15
 
 ## Fases
 
@@ -25,7 +25,7 @@
 | 12 — Medição pós-indexação | Concluída | `database/comparison.py` e testes unitários |
 | 13 — Relatórios e rastreabilidade | Concluída | `database/reporting.py` e testes unitários |
 | 14 — Testes de integração e fluxo completo | Concluída | `tests/integration/test_full_flow.py` e suíte de integração |
-| 15 — Experimentos finais e documentação acadêmica | Pendente | — |
+| 15 — Experimentos finais e documentação acadêmica | Concluída | `docs/METODOLOGIA_EXPERIMENTO.md` e relatório agregado |
 
 ## Entregas da Fase 4
 
@@ -179,3 +179,19 @@ A próxima fase será a extração de oportunidades de indexação.
 - `ruff check src tests`, `ruff format --check src tests` e `pytest -q`
   passaram; a execução `pytest -m integration -q` depende das variáveis
   `IXO_DB_*` e do PostgreSQL de laboratório ativo.
+
+## Entregas da Fase 15
+
+- `docs/METODOLOGIA_EXPERIMENTO.md` registra ambiente, fonte e volume dos dados,
+  consultas Q01–Q03, protocolo, desvios, resultados e limitações acadêmicas.
+- `docs/experimentos/fase15-filtro-uf.json` preserva o resultado agregado do
+  ciclo pré/pós-indexação executado no laboratório.
+- O banco confirmou PostgreSQL 17.11, 1.000.000 de empresas e 1.000.000 de
+  estabelecimentos.
+- Q01 aplicou `ixo_estabelecimento_uf_idx_f71e437d`: mediana de 854,946 ms para
+  802,909 ms, redução de 6,09%, speedup de 1,065x e mudança de `Seq Scan` para
+  `Bitmap Heap Scan`, com linhas observadas iguais.
+- Q02 registrou `Hash Join` e somente índices equivalentes existentes; Q03
+  permaneceu `INDETERMINADO` por tratar-se de ordenação isolada.
+- O relatório não afirma causalidade ou significância estatística e mantém o
+  índice experimental restrito ao laboratório.
