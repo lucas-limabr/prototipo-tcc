@@ -38,7 +38,7 @@ JOIN pg_attribute AS attribute
 WHERE namespace.nspname = ANY(%s)
   AND index_class.relkind = 'i'
   AND table_class.relkind IN ('r', 'p')
-  AND index_class.relname LIKE 'ixo\_%' ESCAPE '\'
+  AND index_class.relname LIKE 'ixo\_%%' ESCAPE '\'
   AND access_method.amname = 'btree'
   AND index_info.indisprimary = false
   AND index_info.indisunique = false
