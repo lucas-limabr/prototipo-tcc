@@ -128,6 +128,30 @@ de limpeza com a confirmação explícita:
 index-optimizer cleanup --experimental-indexes
 ```
 
+## Gerar gráfico de desempenho
+
+Dado um relatório JSON com `baseline`, `after` e `comparison`, gere o gráfico
+com:
+
+```bash
+index-optimizer plot \
+  --report reports/experimento.json \
+  --output-dir reports/charts
+```
+
+`--output-dir` é opcional e o padrão é `reports/charts/`. O comando cria o
+diretório, imprime em JSON o caminho salvo e gera
+`<experiment_id>-performance.png`. A figura mostra as medianas de tempo do
+servidor antes/depois, com valores anotados; a cor e o título identificam
+`MELHORIA`, `REGRESSAO`, `SEM_MUDANCA_RELEVANTE` ou `INCONCLUSIVO`.
+O formato agregado do experimento versionado em
+`docs/experimentos/fase15-filtro-uf.json` também é aceito.
+
+O comando recusa relatórios sem baseline, after ou comparison (não cria
+gráficos incompletos). `analyze`, `benchmark` e `optimize` não produzem
+automaticamente uma comparação antes/depois; o modo `optimize` também não
+executa benchmarks por conta própria.
+
 Essa operação só é permitida quando `IXO_ENVIRONMENT=lab` e o host é local
 (`localhost`, `127.0.0.1` ou `::1`). Ela procura apenas índices cujo nome começa
 com `ixo_`, cujo nome corresponde ao padrão determinístico do protótipo, e que

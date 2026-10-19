@@ -55,6 +55,15 @@ def build_parser() -> argparse.ArgumentParser:
         required=True,
         help="Confirma explicitamente a remoção dos índices experimentais elegíveis.",
     )
+    plot = sub.add_parser("plot", help="Gera um gráfico PNG a partir de um relatório JSON.")
+    plot.add_argument("--report", required=True, type=Path, metavar="PATH")
+    plot.add_argument(
+        "--output-dir",
+        type=Path,
+        default=Path("reports/charts"),
+        metavar="PATH",
+        help="Diretório de saída (padrão: reports/charts).",
+    )
     return parser
 
 
@@ -204,6 +213,14 @@ def _run_cleanup(args: argparse.Namespace) -> int:
     return ExitCode.OK
 
 
+def _run_plot(args: argparse.Namespace) -> int:
+    from index_optimizer.database.charts import report_from_json, save_performance_chart
+
+    output_path = save_performance_chart(report_from_json(args.report), args.output_dir)
+    print(json.dumps({"command": "plot", "path": str(output_path)}, ensure_ascii=False))
+    return ExitCode.OK
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
@@ -223,6 +240,8 @@ def main(argv: Sequence[str] | None = None) -> int:
             return _run_optimize(args)
         if args.command == "cleanup":
             return _run_cleanup(args)
+        if args.command == "plot":
+            return _run_plot(args)
     except IndexOptimizerError as exc:
         print(f"erro: {exc}", file=sys.stderr)
         return exc.exit_code

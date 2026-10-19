@@ -27,6 +27,24 @@ index-optimizer --help
 index-optimizer --version
 ```
 
+## Gráficos de comparação
+
+Para gerar um PNG a partir de um relatório JSON que contenha medições `baseline`,
+`after` e `comparison`:
+
+```bash
+index-optimizer plot --report reports/experimento.json
+```
+
+O arquivo é salvo por padrão em `reports/charts/<experiment_id>-performance.png`.
+Use `--output-dir PATH` para alterar o diretório. O gráfico compara o tempo
+mediano do servidor antes/depois; o rótulo e a cor indicam `MELHORIA`,
+`REGRESSAO`, `SEM_MUDANCA_RELEVANTE` ou `INCONCLUSIVO`. Relatórios produzidos
+apenas por `analyze`, `benchmark` ou `optimize` não têm automaticamente as duas
+etapas necessárias: a aplicação de índices não executa benchmark antes/depois.
+O relatório agregado do experimento versionado em
+`docs/experimentos/fase15-filtro-uf.json` também pode ser usado como entrada.
+
 ## Massa CNPJ
 
 O download e a carga da massa de benchmark são explícitos e mantêm os arquivos
