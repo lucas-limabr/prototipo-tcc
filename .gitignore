@@ -23,8 +23,6 @@ htmlcov/
 
 # Dados e resultados locais
 data/
-reports/*
-!reports/README.md
 
 # IDE / SO
 .idea/
