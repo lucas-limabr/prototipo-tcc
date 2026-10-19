@@ -44,6 +44,17 @@ def build_parser() -> argparse.ArgumentParser:
         help="Aplica os índices recomendados (somente no laboratório).",
     )
     optimize.add_argument("--runs", type=int, default=5, help="Medições válidas (padrão: 5).")
+
+    cleanup = sub.add_parser(
+        "cleanup",
+        help="Remove índices experimentais criados pelo protótipo (somente laboratório local).",
+    )
+    cleanup.add_argument(
+        "--experimental-indexes",
+        action="store_true",
+        required=True,
+        help="Confirma explicitamente a remoção dos índices experimentais elegíveis.",
+    )
     return parser
 
 
@@ -167,6 +178,32 @@ def _run_optimize(args: argparse.Namespace) -> int:
     return ExitCode.OK
 
 
+def _run_cleanup(args: argparse.Namespace) -> int:
+    from index_optimizer.config import load_settings
+    from index_optimizer.database.index_cleanup import cleanup_experimental_indexes
+
+    settings = load_settings()
+    result = cleanup_experimental_indexes(
+        settings,
+        experimental_indexes=args.experimental_indexes,
+    )
+    if result.removed_count:
+        message = f"{result.removed_count} índice(s) experimental(is) removido(s)."
+    else:
+        message = "Nenhum índice experimental elegível encontrado."
+    payload = {
+        "command": "cleanup",
+        "environment": settings.environment,
+        "experimental_indexes": args.experimental_indexes,
+        "message": message,
+        "removed_count": result.removed_count,
+        "removed_indexes": [item.name for item in result.removed_indexes],
+        "status": "SUCCESS",
+    }
+    print(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True))
+    return ExitCode.OK
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
@@ -184,6 +221,8 @@ def main(argv: Sequence[str] | None = None) -> int:
             return _run_benchmark(args)
         if args.command == "optimize":
             return _run_optimize(args)
+        if args.command == "cleanup":
+            return _run_cleanup(args)
     except IndexOptimizerError as exc:
         print(f"erro: {exc}", file=sys.stderr)
         return exc.exit_code

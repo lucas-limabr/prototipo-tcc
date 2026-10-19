@@ -1,9 +1,11 @@
+import json
 from unittest.mock import patch
 
 import pytest
 
 from index_optimizer import __version__
 from index_optimizer.cli import main
+from index_optimizer.database.index_cleanup import CleanupResult
 from index_optimizer.errors import ExitCode
 
 
@@ -12,7 +14,7 @@ def test_help(capsys):
         main(["--help"])
     assert exc.value.code == 0
     out = capsys.readouterr().out
-    for cmd in ("analyze", "benchmark", "optimize"):
+    for cmd in ("analyze", "benchmark", "optimize", "cleanup"):
         assert cmd in out
 
 
@@ -56,3 +58,30 @@ def test_dry_run_and_apply_are_exclusive():
     with pytest.raises(SystemExit) as exc:
         main(["optimize", "--query", "SELECT 1", "--dry-run", "--apply-indexes"])
     assert exc.value.code == 2
+
+
+def test_cleanup_requires_explicit_experimental_indexes_flag():
+    with pytest.raises(SystemExit) as exc:
+        main(["cleanup"])
+    assert exc.value.code == 2
+
+
+@patch("index_optimizer.cli._run_cleanup", return_value=ExitCode.OK)
+def test_cleanup_dispatches_with_explicit_flag(run_cleanup):
+    assert main(["cleanup", "--experimental-indexes"]) == ExitCode.OK
+    run_cleanup.assert_called_once()
+
+
+@patch("index_optimizer.database.index_cleanup.cleanup_experimental_indexes")
+@patch("index_optimizer.config.load_settings")
+def test_cleanup_reports_success_when_no_indexes(load_settings, cleanup, capsys):
+    load_settings.return_value.environment = "lab"
+    cleanup.return_value = CleanupResult(removed_indexes=())
+
+    assert main(["cleanup", "--experimental-indexes"]) == ExitCode.OK
+
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["status"] == "SUCCESS"
+    assert payload["removed_count"] == 0
+    assert payload["removed_indexes"] == []
+    assert "Nenhum índice" in payload["message"]
