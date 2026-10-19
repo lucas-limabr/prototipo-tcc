@@ -279,10 +279,9 @@ def _load_limited(conn, source, manifest, parts, max_companies, max_establishmen
         raise DatasetError("Os limites de carga devem ser maiores que zero.")
     with conn.transaction(), conn.cursor() as cur:
         _staging(cur, "stg_establishment_source", 30)
-        read = _copy_zip(
-            cur,
-            source / f"Estabelecimentos{parts[0]}.zip",
-            "stg_establishment_source",
+        read = sum(
+            _copy_zip(cur, source / f"Estabelecimentos{part}.zip", "stg_establishment_source")
+            for part in parts
         )
         cur.execute(
             """

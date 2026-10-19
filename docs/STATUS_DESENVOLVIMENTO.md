@@ -14,7 +14,7 @@
 | 1 — Requisitos e arquitetura | Concluída | Arquitetura definida no plano do projeto |
 | 2 — Estrutura Python | Concluída | CLI, configuração, empacotamento e testes iniciais |
 | 3 — PostgreSQL Docker | Concluída | `compose.yaml`, healthcheck e porta local restrita |
-| 4 — Massa de dados | Concluída | 1.000.000 empresas e 1.000.000 estabelecimentos carregados; socio não carregada |
+| 4 — Massa de dados | Parcial | Meta de 5.000.000; carga local efetiva: 4.659.598 empresas e 4.753.435 estabelecimentos; socio não carregada |
 | 5 — Conexão e catálogo | Concluída | Catálogo lê schemas, tabelas, colunas, constraints e índices permitidos |
 | 6 — Validação SQL e EXPLAIN | Concluída | `database/query_validation.py`, `database/explain.py` e testes unitários |
 | 7 — Parser do plano | Concluída | `database/plan_parser.py` e testes unitários |
@@ -47,8 +47,10 @@
   hashes.
 - A primeira tentativa foi interrompida pela indisponibilidade temporária do
   daemon Docker; a execução foi retomada posteriormente no laboratório.
-- Carga limitada concluída e validada no PostgreSQL: `empresa` 1.000.000,
-  `estabelecimento` 1.000.000 e `socio` 0.
+- Carga limitada executada com meta de cinco milhões e validada no PostgreSQL:
+  `empresa` 4.659.598, `estabelecimento` 4.753.435 e `socio` 0. A partição
+  adicional necessária para atingir cinco milhões não estava disponível durante
+  a execução.
 - Datas são normalizadas para `date`, aceitando `YYYYMMDD` e `DDMMYYYY`;
   valores criticamente inválidos são tratados como ausentes.
 
@@ -187,7 +189,8 @@ vigente e a próxima etapa estão registrados no cabeçalho e na tabela de fases
   consultas Q01–Q03, protocolo, desvios, resultados e limitações acadêmicas.
 - `docs/experimentos/fase15-filtro-uf.json` preserva o resultado agregado do
   ciclo pré/pós-indexação executado no laboratório.
-- O banco confirmou PostgreSQL 17.11, 1.000.000 de empresas e 1.000.000 de
+- O banco confirmou PostgreSQL 17.11 e a carga efetiva acima; a meta de cinco
+  milhões permanece pendente de uma partição adicional.
   estabelecimentos.
 - Q01 aplicou `ixo_estabelecimento_uf_idx_f71e437d`: mediana de 854,946 ms para
   802,909 ms, redução de 6,09%, speedup de 1,065x e mudança de `Seq Scan` para

@@ -204,7 +204,7 @@ Baixe uma referência mensal e uma partição de estabelecimentos:
 
 ```bash
 python -m index_optimizer.datasets.cnpj \
-  --data-dir data/cnpj download --reference 2026-10 --parts 1
+  --data-dir data/cnpj download --reference 2026-10 --parts 0 1
 ```
 
 `--parts` aceita valores de 0 a 9 e, se omitido, usa a partição 1. O download
@@ -213,17 +213,22 @@ empresas e sócios, e os ZIPs das tabelas de domínio.
 
 Para carregar no PostgreSQL, primeiro carregue `.env` no shell e confirme que o
 PostgreSQL de laboratório está ativo. A carga limitada abaixo requer os dois
-limites juntos e seleciona estabelecimentos da primeira partição indicada no
-manifesto:
+limites juntos e seleciona estabelecimentos de todas as partições indicadas no
+manifesto até atingir os limites:
 
 ```bash
 set -a; source .env; set +a
 python -m index_optimizer.datasets.cnpj \
   --data-dir data/cnpj load --reference 2026-10 \
-  --max-companies 1000000 --max-establishments 1000000
+  --max-companies 5000000 --max-establishments 5000000
 python -m index_optimizer.datasets.cnpj \
   --data-dir data/cnpj validate
 ```
+
+Os limites de cinco milhões são máximos. A validação desta execução encontrou
+4.659.598 empresas e 4.753.435 estabelecimentos porque apenas a partição 1
+estava disponível localmente; para atingir cinco milhões, baixe partições
+adicionais e repita a carga.
 
 Sem limites, `load` importa os arquivos listados no manifesto. A carga normal
 trunca as tabelas de dados gerenciadas do schema `cnpj` antes de importar, mas

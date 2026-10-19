@@ -12,8 +12,9 @@ provar causalidade ou significância estatística.
 - Execução registrada em 2026-10-15, no banco Docker `index_lab`.
 - PostgreSQL 17.11, host local, uma conexão por vez e sem carga concorrente
   conhecida.
-- Massa CNPJ da referência `2026-10`, com 1.000.000 de linhas em
-  `cnpj.empresa` e 1.000.000 em `cnpj.estabelecimento`.
+- Meta de carga: 5.000.000 de linhas em `cnpj.empresa` e 5.000.000 em
+  `cnpj.estabelecimento`. A quantidade efetiva depende das partições disponíveis
+  no manifesto e deve ser confirmada pela validação.
 - A tabela `cnpj.estabelecimento` é a tabela principal; os arquivos brutos e
   credenciais permanecem fora do Git.
 - Índices de integridade e índices preexistentes foram preservados. O índice

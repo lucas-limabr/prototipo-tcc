@@ -50,11 +50,11 @@ ao menos 500.000 linhas e verifica as referências para `empresa`.
    ```
 
 2. Escolha uma referência mensal exibida no compartilhamento oficial (por
-   exemplo, `2026-10`) e baixe uma partição de estabelecimentos:
+   exemplo, `2026-10`) e baixe as partições necessárias de estabelecimentos:
 
    ```bash
    python -m index_optimizer.datasets.cnpj \
-     --data-dir data/cnpj download --reference 2026-10 --parts 1
+     --data-dir data/cnpj download --reference 2026-10 --parts 0 1
    ```
 
    O comando também baixa os dez arquivos `Empresas*.zip`, os dez
@@ -66,8 +66,8 @@ ao menos 500.000 linhas e verifica as referências para `empresa`.
    ```bash
    python -m index_optimizer.datasets.cnpj \
      --data-dir /home/lucaslima/Compartilhada/DadosTCC2/cnpj-data \
-     load --reference 2026-10 --max-companies 1000000 \
-     --max-establishments 1000000
+     load --reference 2026-10 --max-companies 5000000 \
+     --max-establishments 5000000
    python -m index_optimizer.datasets.cnpj \
      --data-dir /home/lucaslima/Compartilhada/DadosTCC2/cnpj-data validate
    ```
@@ -75,6 +75,8 @@ ao menos 500.000 linhas e verifica as referências para `empresa`.
    Se uma carga for interrompida por falta de espaço, aumente o armazenamento
    e repita o comando com `--resume`. Essa opção preserva as linhas já
    confirmadas e reprocessa os arquivos com upsert, sem truncar as tabelas.
+   Para atingir a meta de cinco milhões, o manifesto precisa conter partições
+   suficientes de `Estabelecimentos`; os limites são máximos, não garantias.
 
 4. Guarde a saída da validação e o manifesto como evidência local do
    experimento. Não copie os ZIPs ou esses artefatos para o Git.
@@ -86,10 +88,11 @@ centenas de gigabytes de armazenamento temporário em algumas referências e nã
 ## Limitações
 
 - O tamanho e a disponibilidade dos arquivos variam por referência mensal.
-- A partição escolhida precisa ser validada; o carregador não afirma que uma
-  referência atende 500.000 linhas antes da execução de `validate`.
-- A carga usa apenas uma partição de `Estabelecimentos` por padrão para manter
-  o laboratório reproduzível e viável.
+- As partições escolhidas precisam ser validadas; o carregador não afirma que
+  uma referência atende cinco milhões de linhas antes da execução de `validate`.
+- A carga usa todas as partições de `Estabelecimentos` listadas no manifesto no
+  modo limitado; o download padrão ainda pode selecionar apenas uma partição
+  para manter o laboratório reproduzível e viável.
 - O schema contém índices mínimos de integridade e acesso. Índices criados pelo
   protótipo serão tratados separadamente nas fases posteriores.
 - As datas são convertidas para o tipo PostgreSQL `date`, aceitando
