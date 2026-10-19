@@ -1,0 +1,115 @@
+{
+  "after": null,
+  "applied_indexes": [],
+  "baseline": {
+    "errors": [],
+    "max_server_time_ms": 4631.274,
+    "mean_server_time_ms": 4586.6426,
+    "measurements": [
+      {
+        "buffers": {
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Hit Blocks": 6139,
+          "Shared Read Blocks": 105010,
+          "Shared Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0
+        },
+        "execution_time_ms": 4631.274,
+        "planning_time_ms": 0.345,
+        "rows": 1.0,
+        "run": 1,
+        "server_time_ms": 4631.274
+      },
+      {
+        "buffers": {
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Hit Blocks": 6235,
+          "Shared Read Blocks": 104914,
+          "Shared Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0
+        },
+        "execution_time_ms": 4562.979,
+        "planning_time_ms": 0.333,
+        "rows": 1.0,
+        "run": 2,
+        "server_time_ms": 4562.979
+      },
+      {
+        "buffers": {
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Hit Blocks": 6331,
+          "Shared Read Blocks": 104818,
+          "Shared Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0
+        },
+        "execution_time_ms": 4591.902,
+        "planning_time_ms": 0.374,
+        "rows": 1.0,
+        "run": 3,
+        "server_time_ms": 4591.902
+      },
+      {
+        "buffers": {
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Hit Blocks": 6427,
+          "Shared Read Blocks": 104722,
+          "Shared Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0
+        },
+        "execution_time_ms": 4592.754,
+        "planning_time_ms": 0.387,
+        "rows": 1.0,
+        "run": 4,
+        "server_time_ms": 4592.754
+      },
+      {
+        "buffers": {
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Hit Blocks": 6523,
+          "Shared Read Blocks": 104626,
+          "Shared Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0
+        },
+        "execution_time_ms": 4554.304,
+        "planning_time_ms": 0.392,
+        "rows": 1.0,
+        "run": 5,
+        "server_time_ms": 4554.304
+      }
+    ],
+    "median_server_time_ms": 4591.902,
+    "min_server_time_ms": 4554.304,
+    "requested_runs": 5,
+    "sql": "SELECT count(e.identificador_matriz_filial) AS contagemMatriz FROM cnpj.estabelecimento AS e WHERE e.identificador_matriz_filial = 1",
+    "stdev_server_time_ms": 30.260218849175608,
+    "warmups": 2
+  },
+  "comparison": null,
+  "condition": {
+    "command": "benchmark",
+    "environment": "lab",
+    "runs": 5,
+    "warmups": 2
+  },
+  "estimated_plan": null,
+  "experiment_id": "ede1639c02571579",
+  "generated_at": "2026-10-19T23:45:02.781024+00:00",
+  "limitations": [],
+  "query": "SELECT count(e.identificador_matriz_filial) AS contagemMatriz FROM cnpj.estabelecimento AS e WHERE e.identificador_matriz_filial = 1",
+  "recommendations": []
+}

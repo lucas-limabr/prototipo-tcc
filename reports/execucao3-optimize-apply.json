@@ -1,0 +1,118 @@
+{
+  "after": null,
+  "applied_indexes": [
+    {
+      "created_at": "2026-10-19T23:45:03.499015+00:00",
+      "ddl": {
+        "column": "identificador_matriz_filial",
+        "name": "ixo_estabelecimento_identificador_matriz_filial_idx_067a9345",
+        "schema": "cnpj",
+        "statement": "Composed([SQL('CREATE INDEX '), Identifier('ixo_estabelecimento_identificador_matriz_filial_idx_067a9345'), SQL(' ON '), Identifier('cnpj'), SQL('.'), Identifier('estabelecimento'), SQL(' USING btree ('), Identifier('identificador_matriz_filial'), SQL(')')])",
+        "table": "estabelecimento"
+      },
+      "message": "Índice criado e tabela analisada.",
+      "status": "CREATED"
+    }
+  ],
+  "baseline": null,
+  "comparison": null,
+  "condition": {
+    "command": "optimize",
+    "environment": "lab",
+    "mode": "apply"
+  },
+  "dry_run": [
+    "CREATE INDEX \"ixo_estabelecimento_identificador_matriz_filial_idx_067a9345\" ON \"cnpj\".\"estabelecimento\" USING btree (\"identificador_matriz_filial\")"
+  ],
+  "estimated_plan": [
+    {
+      "JIT": {
+        "Functions": 7,
+        "Options": {
+          "Deforming": true,
+          "Expressions": true,
+          "Inlining": false,
+          "Optimization": false
+        }
+      },
+      "Plan": {
+        "Async Capable": false,
+        "Node Type": "Aggregate",
+        "Parallel Aware": false,
+        "Partial Mode": "Finalize",
+        "Plan Rows": 1,
+        "Plan Width": 8,
+        "Plans": [
+          {
+            "Async Capable": false,
+            "Node Type": "Gather",
+            "Parallel Aware": false,
+            "Parent Relationship": "Outer",
+            "Plan Rows": 2,
+            "Plan Width": 8,
+            "Plans": [
+              {
+                "Async Capable": false,
+                "Node Type": "Aggregate",
+                "Parallel Aware": false,
+                "Parent Relationship": "Outer",
+                "Partial Mode": "Partial",
+                "Plan Rows": 1,
+                "Plan Width": 8,
+                "Plans": [
+                  {
+                    "Alias": "e",
+                    "Async Capable": false,
+                    "Filter": "(identificador_matriz_filial = 1)",
+                    "Node Type": "Seq Scan",
+                    "Parallel Aware": true,
+                    "Parent Relationship": "Outer",
+                    "Plan Rows": 1877168,
+                    "Plan Width": 4,
+                    "Relation Name": "estabelecimento",
+                    "Startup Cost": 0.0,
+                    "Total Cost": 135908.52
+                  }
+                ],
+                "Startup Cost": 140601.44,
+                "Strategy": "Plain",
+                "Total Cost": 140601.45
+              }
+            ],
+            "Single Copy": false,
+            "Startup Cost": 141601.44,
+            "Total Cost": 141601.65,
+            "Workers Planned": 2
+          }
+        ],
+        "Startup Cost": 141601.66,
+        "Strategy": "Plain",
+        "Total Cost": 141601.67
+      }
+    }
+  ],
+  "experiment_id": "b78387317fd4a6eb",
+  "generated_at": "2026-10-19T23:45:05.889624+00:00",
+  "limitations": [
+    "A aplicação foi autorizada explicitamente no laboratório."
+  ],
+  "query": "SELECT count(e.identificador_matriz_filial) AS contagemMatriz FROM cnpj.estabelecimento AS e WHERE e.identificador_matriz_filial = 1",
+  "recommendations": [
+    {
+      "access_method": "btree",
+      "columns": [
+        "identificador_matriz_filial"
+      ],
+      "evidence": "(identificador_matriz_filial = 1)",
+      "evidence_kind": "Filter",
+      "justification": "Recomendar índice B-tree simples em cnpj.estabelecimento (identificador_matriz_filial) por evidência de Filter.",
+      "limitations": [
+        "A recomendação é preliminar e deve ser confirmada por medições.",
+        "Não são gerados índices compostos automaticamente."
+      ],
+      "schema": "cnpj",
+      "status": "RECOMENDADO",
+      "table": "estabelecimento"
+    }
+  ]
+}

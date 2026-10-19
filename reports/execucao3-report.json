@@ -1,0 +1,237 @@
+{
+  "after": {
+    "errors": [],
+    "max_server_time_ms": 4663.344,
+    "mean_server_time_ms": 4527.3279999999995,
+    "measurements": [
+      {
+        "buffers": {
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Hit Blocks": 3798,
+          "Shared Read Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0
+        },
+        "execution_time_ms": 4446.181,
+        "planning_time_ms": 0.383,
+        "rows": 1.0,
+        "run": 1,
+        "server_time_ms": 4446.181
+      },
+      {
+        "buffers": {
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Hit Blocks": 3798,
+          "Shared Read Blocks": 1,
+          "Shared Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0
+        },
+        "execution_time_ms": 4579.414,
+        "planning_time_ms": 0.385,
+        "rows": 1.0,
+        "run": 2,
+        "server_time_ms": 4579.414
+      },
+      {
+        "buffers": {
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Hit Blocks": 3799,
+          "Shared Read Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0
+        },
+        "execution_time_ms": 4663.344,
+        "planning_time_ms": 0.445,
+        "rows": 1.0,
+        "run": 3,
+        "server_time_ms": 4663.344
+      },
+      {
+        "buffers": {
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Hit Blocks": 3799,
+          "Shared Read Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0
+        },
+        "execution_time_ms": 4508.988,
+        "planning_time_ms": 0.401,
+        "rows": 1.0,
+        "run": 4,
+        "server_time_ms": 4508.988
+      },
+      {
+        "buffers": {
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Hit Blocks": 3798,
+          "Shared Read Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0
+        },
+        "execution_time_ms": 4438.713,
+        "planning_time_ms": 0.385,
+        "rows": 1.0,
+        "run": 5,
+        "server_time_ms": 4438.713
+      }
+    ],
+    "median_server_time_ms": 4508.988,
+    "min_server_time_ms": 4438.713,
+    "requested_runs": 5,
+    "sql": "SELECT count(e.identificador_matriz_filial) AS contagemMatriz FROM cnpj.estabelecimento AS e WHERE e.identificador_matriz_filial = 1",
+    "stdev_server_time_ms": 94.85134828509304,
+    "warmups": 2
+  },
+  "applied_indexes": [],
+  "baseline": {
+    "errors": [],
+    "max_server_time_ms": 4631.274,
+    "mean_server_time_ms": 4586.6426,
+    "measurements": [
+      {
+        "buffers": {
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Hit Blocks": 6139,
+          "Shared Read Blocks": 105010,
+          "Shared Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0
+        },
+        "execution_time_ms": 4631.274,
+        "planning_time_ms": 0.345,
+        "rows": 1.0,
+        "run": 1,
+        "server_time_ms": 4631.274
+      },
+      {
+        "buffers": {
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Hit Blocks": 6235,
+          "Shared Read Blocks": 104914,
+          "Shared Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0
+        },
+        "execution_time_ms": 4562.979,
+        "planning_time_ms": 0.333,
+        "rows": 1.0,
+        "run": 2,
+        "server_time_ms": 4562.979
+      },
+      {
+        "buffers": {
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Hit Blocks": 6331,
+          "Shared Read Blocks": 104818,
+          "Shared Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0
+        },
+        "execution_time_ms": 4591.902,
+        "planning_time_ms": 0.374,
+        "rows": 1.0,
+        "run": 3,
+        "server_time_ms": 4591.902
+      },
+      {
+        "buffers": {
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Hit Blocks": 6427,
+          "Shared Read Blocks": 104722,
+          "Shared Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0
+        },
+        "execution_time_ms": 4592.754,
+        "planning_time_ms": 0.387,
+        "rows": 1.0,
+        "run": 4,
+        "server_time_ms": 4592.754
+      },
+      {
+        "buffers": {
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Hit Blocks": 6523,
+          "Shared Read Blocks": 104626,
+          "Shared Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0
+        },
+        "execution_time_ms": 4554.304,
+        "planning_time_ms": 0.392,
+        "rows": 1.0,
+        "run": 5,
+        "server_time_ms": 4554.304
+      }
+    ],
+    "median_server_time_ms": 4591.902,
+    "min_server_time_ms": 4554.304,
+    "requested_runs": 5,
+    "sql": "SELECT count(e.identificador_matriz_filial) AS contagemMatriz FROM cnpj.estabelecimento AS e WHERE e.identificador_matriz_filial = 1",
+    "stdev_server_time_ms": 30.260218849175608,
+    "warmups": 2
+  },
+  "comparison": {
+    "after_median_ms": 4508.988,
+    "baseline_median_ms": 4591.902,
+    "created_indexes": [
+      "ixo_estabelecimento_identificador_matriz_filial_idx_067a9345"
+    ],
+    "explanation": "Mediana antes: 4591.902 ms; depois: 4508.988 ms; variação: 1.81%; speedup: 1.018x.",
+    "limitations": [
+      "A comparação não demonstra causalidade nem significância estatística.",
+      "A métrica comparada é o tempo mediano do servidor em milissegundos.",
+      "Execução realizada no PostgreSQL local com a carga CNPJ disponível."
+    ],
+    "plan_changed": null,
+    "reduction_percent": 1.8056570022618026,
+    "result_rows_equal": true,
+    "speedup": 1.0183886051592952,
+    "sql": "SELECT count(e.identificador_matriz_filial) AS contagemMatriz FROM cnpj.estabelecimento AS e WHERE e.identificador_matriz_filial = 1",
+    "status": "SEM_MUDANCA_RELEVANTE"
+  },
+  "condition": {
+    "command": "benchmark-comparison",
+    "dataset": "CNPJ 2026-10",
+    "empresa_rows": 4659598,
+    "environment": "lab",
+    "estabelecimento_rows": 4753435,
+    "runs": 5,
+    "warmups": 2
+  },
+  "estimated_plan": null,
+  "experiment_id": "478fa45d02909f7a",
+  "generated_at": "2026-10-19T23:45:55.816977+00:00",
+  "limitations": [
+    "A comparação não demonstra causalidade nem significância estatística.",
+    "A métrica comparada é o tempo mediano do servidor em milissegundos.",
+    "Execução realizada no PostgreSQL local com a carga CNPJ disponível."
+  ],
+  "query": "SELECT count(e.identificador_matriz_filial) AS contagemMatriz FROM cnpj.estabelecimento AS e WHERE e.identificador_matriz_filial = 1",
+  "recommendations": []
+}
