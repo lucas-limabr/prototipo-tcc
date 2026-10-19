@@ -1,0 +1,59 @@
+{
+  "after": null,
+  "applied_indexes": [],
+  "baseline": null,
+  "comparison": null,
+  "condition": {
+    "command": "analyze",
+    "environment": "lab"
+  },
+  "estimated_plan": [
+    {
+      "JIT": {
+        "Functions": 4,
+        "Options": {
+          "Deforming": true,
+          "Expressions": true,
+          "Inlining": false,
+          "Optimization": false
+        }
+      },
+      "Plan": {
+        "Alias": "e",
+        "Async Capable": false,
+        "Filter": "(uf = 'SP'::bpchar)",
+        "Node Type": "Seq Scan",
+        "Parallel Aware": false,
+        "Plan Rows": 1343967,
+        "Plan Width": 9,
+        "Relation Name": "estabelecimento",
+        "Startup Cost": 0.0,
+        "Total Cost": 170539.48
+      }
+    }
+  ],
+  "experiment_id": "f84bbd486bb13d03",
+  "generated_at": "2026-10-19T23:25:53.567163+00:00",
+  "limitations": [
+    "A análise não altera a estrutura do banco."
+  ],
+  "query": "SELECT e.cnpj_basico FROM cnpj.estabelecimento AS e WHERE e.uf = 'SP'",
+  "recommendations": [
+    {
+      "access_method": "btree",
+      "columns": [
+        "uf"
+      ],
+      "evidence": "(uf = 'SP'::bpchar)",
+      "evidence_kind": "Filter",
+      "justification": "Recomendar índice B-tree simples em cnpj.estabelecimento (uf) por evidência de Filter.",
+      "limitations": [
+        "A recomendação é preliminar e deve ser confirmada por medições.",
+        "Não são gerados índices compostos automaticamente."
+      ],
+      "schema": "cnpj",
+      "status": "RECOMENDADO",
+      "table": "estabelecimento"
+    }
+  ]
+}
