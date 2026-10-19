@@ -139,16 +139,16 @@ index-optimizer plot \
   --output-dir reports/charts
 ```
 
-`--output-dir` é opcional e o padrão é `reports/charts/`. O comando cria o
-diretório, imprime em JSON o caminho salvo e gera
-`<experiment_id>-performance.png`. A figura mostra as medianas de tempo do
-servidor antes/depois, com valores anotados; a cor e o título identificam
-`MELHORIA`, `REGRESSAO`, `SEM_MUDANCA_RELEVANTE` ou `INCONCLUSIVO`.
-O formato agregado do experimento versionado em
-`docs/experimentos/fase15-filtro-uf.json` também é aceito.
-
-O comando recusa relatórios sem baseline, after ou comparison (não cria
-gráficos incompletos). `analyze`, `benchmark` e `optimize` não produzem
+`--output-dir` é opcional e o padrão é `reports/charts/`. O comando valida os
+dados necessários, cria o diretório, imprime em JSON os caminhos salvos e gera
+dois PNGs: o gráfico de medianas
+`<experiment_id>-performance.png` e o gráfico de variabilidade
+`<experiment_id>-variability.png`. Este último compara as médias antes/depois
+com barras de erro de ± desvio padrão, permitindo observar simultaneamente o
+tempo típico e a dispersão das execuções. Ele exige que o relatório contenha o
+desvio padrão de ambas as condições; relatórios agregados sem essa informação
+não geram gráficos. O comando recusa relatórios sem baseline, after ou
+comparison (não cria gráficos incompletos). `analyze`, `benchmark` e `optimize` não produzem
 automaticamente uma comparação antes/depois; o modo `optimize` também não
 executa benchmarks por conta própria.
 

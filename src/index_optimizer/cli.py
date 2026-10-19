@@ -214,10 +214,31 @@ def _run_cleanup(args: argparse.Namespace) -> int:
 
 
 def _run_plot(args: argparse.Namespace) -> int:
-    from index_optimizer.database.charts import report_from_json, save_performance_chart
+    from index_optimizer.database.charts import (
+        extract_performance_chart_data,
+        extract_variability_chart_data,
+        report_from_json,
+        save_performance_chart,
+        save_variability_chart,
+    )
 
-    output_path = save_performance_chart(report_from_json(args.report), args.output_dir)
-    print(json.dumps({"command": "plot", "path": str(output_path)}, ensure_ascii=False))
+    report = report_from_json(args.report)
+    extract_performance_chart_data(report)
+    extract_variability_chart_data(report)
+    performance_path = save_performance_chart(report, args.output_dir)
+    variability_path = save_variability_chart(report, args.output_dir)
+    print(
+        json.dumps(
+            {
+                "command": "plot",
+                "paths": {
+                    "performance": str(performance_path),
+                    "variability": str(variability_path),
+                },
+            },
+            ensure_ascii=False,
+        )
+    )
     return ExitCode.OK
 
 

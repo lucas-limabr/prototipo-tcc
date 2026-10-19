@@ -7,8 +7,10 @@ from index_optimizer.database.benchmark import BenchmarkSummary, Measurement
 from index_optimizer.database.charts import (
     ChartDataError,
     extract_performance_chart_data,
+    extract_variability_chart_data,
     report_from_json,
     save_performance_chart,
+    save_variability_chart,
 )
 from index_optimizer.database.comparison import (
     ComparisonStatus,
@@ -82,6 +84,27 @@ def test_chart_rejects_incomplete_report():
         extract_performance_chart_data(build_report("SELECT 1", condition={}))
 
 
+def test_variability_chart_creates_mean_and_standard_deviation_chart(tmp_path: Path):
+    report = _report()
+
+    output = save_variability_chart(report, tmp_path / "charts")
+
+    assert output == tmp_path / "charts" / f"{report.experiment_id}-variability.png"
+    assert output.is_file()
+    data = extract_variability_chart_data(report)
+    assert data.baseline_stdev_ms == 1
+    assert data.after_stdev_ms == 1
+
+
+def test_variability_chart_rejects_aggregate_without_standard_deviation():
+    aggregate = report_from_json(
+        Path(__file__).parents[2] / "docs" / "experimentos" / "fase15-filtro-uf.json"
+    )
+
+    with pytest.raises(ChartDataError, match="desvios padrão"):
+        extract_variability_chart_data(aggregate)
+
+
 def test_report_json_round_trip_for_chart(tmp_path: Path):
     report_path = tmp_path / "report.json"
     report_path.write_text(report_to_json(_report()), encoding="utf-8")
@@ -112,4 +135,5 @@ def test_cli_plot_reads_report_and_prints_path(tmp_path: Path, capsys):
     assert main(["plot", "--report", str(report_path), "--output-dir", str(tmp_path)]) == 0
 
     payload = json.loads(capsys.readouterr().out)
-    assert Path(payload["path"]).is_file()
+    assert Path(payload["paths"]["performance"]).is_file()
+    assert Path(payload["paths"]["variability"]).is_file()

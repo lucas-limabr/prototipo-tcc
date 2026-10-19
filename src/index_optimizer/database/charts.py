@@ -31,6 +31,18 @@ class PerformanceChartData:
     status: str
 
 
+@dataclass(frozen=True)
+class VariabilityChartData:
+    """Médias e desvios padrão usados no gráfico de variabilidade."""
+
+    experiment_id: str
+    baseline_mean_ms: float
+    after_mean_ms: float
+    baseline_stdev_ms: float
+    after_stdev_ms: float
+    status: str
+
+
 def extract_performance_chart_data(report: ExperimentReport) -> PerformanceChartData:
     """Extrai as medianas antes/depois e o resultado de um relatório."""
     if report.baseline is None or report.after is None or report.comparison is None:
@@ -43,6 +55,34 @@ def extract_performance_chart_data(report: ExperimentReport) -> PerformanceChart
         experiment_id=report.experiment_id,
         baseline_median_ms=report.baseline.median_server_time_ms,
         after_median_ms=report.after.median_server_time_ms,
+        status=report.comparison.status.value,
+    )
+
+
+def extract_variability_chart_data(report: ExperimentReport) -> VariabilityChartData:
+    """Extrai médias e desvios padrão antes/depois de um relatório."""
+    if report.baseline is None or report.after is None or report.comparison is None:
+        raise ChartDataError(
+            "O relatório precisa conter baseline, after e comparison para gerar o gráfico."
+        )
+    values = (
+        report.baseline.mean_server_time_ms,
+        report.after.mean_server_time_ms,
+        report.baseline.stdev_server_time_ms,
+        report.after.stdev_server_time_ms,
+    )
+    if any(value <= 0 for value in values[:2]):
+        raise ChartDataError("O relatório não contém médias positivas; o gráfico não foi gerado.")
+    if any(value is None or value < 0 for value in values[2:]):
+        raise ChartDataError(
+            "O relatório precisa conter desvios padrão não negativos para gerar o gráfico."
+        )
+    return VariabilityChartData(
+        experiment_id=report.experiment_id,
+        baseline_mean_ms=values[0],
+        after_mean_ms=values[1],
+        baseline_stdev_ms=values[2],
+        after_stdev_ms=values[3],
         status=report.comparison.status.value,
     )
 
@@ -73,6 +113,50 @@ def save_performance_chart(
         axis.annotate(
             f"{value:.3f} ms",
             xy=(bar.get_x() + bar.get_width() / 2, value),
+            xytext=(0, 4),
+            textcoords="offset points",
+            ha="center",
+            va="bottom",
+        )
+    figure.tight_layout()
+    figure.savefig(output_path, format="png", dpi=150)
+    plt.close(figure)
+    return output_path
+
+
+def save_variability_chart(
+    report: ExperimentReport,
+    output_dir: Path = Path("reports/charts"),
+) -> Path:
+    """Salva um gráfico PNG de médias com desvio padrão antes/depois."""
+    data = extract_variability_chart_data(report)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    output_path = output_dir / f"{data.experiment_id}-variability.png"
+    color = {
+        "MELHORIA": "#2e7d32",
+        "REGRESSAO": "#c62828",
+        "SEM_MUDANCA_RELEVANTE": "#ef6c00",
+        "INCONCLUSIVO": "#616161",
+    }.get(data.status, "#616161")
+    means = [data.baseline_mean_ms, data.after_mean_ms]
+    deviations = [data.baseline_stdev_ms, data.after_stdev_ms]
+    figure, axis = plt.subplots(figsize=(7, 4.5))
+    bars = axis.bar(
+        ["Antes", "Depois"],
+        means,
+        yerr=deviations,
+        capsize=6,
+        color=["#607d8b", color],
+        error_kw={"ecolor": "#263238", "elinewidth": 1.2},
+    )
+    axis.set_ylabel("Tempo médio do servidor (ms)")
+    axis.set_title(f"Variabilidade antes/depois — {data.status}")
+    axis.grid(axis="y", alpha=0.25)
+    axis.set_axisbelow(True)
+    for bar, mean, deviation in zip(bars, means, deviations, strict=True):
+        axis.annotate(
+            f"{mean:.3f} ± {deviation:.3f} ms",
+            xy=(bar.get_x() + bar.get_width() / 2, mean + deviation),
             xytext=(0, 4),
             textcoords="offset points",
             ha="center",

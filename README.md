@@ -36,9 +36,12 @@ Para gerar um PNG a partir de um relatório JSON que contenha medições `baseli
 index-optimizer plot --report reports/experimento.json
 ```
 
-O arquivo é salvo por padrão em `reports/charts/<experiment_id>-performance.png`.
-Use `--output-dir PATH` para alterar o diretório. O gráfico compara o tempo
-mediano do servidor antes/depois; o rótulo e a cor indicam `MELHORIA`,
+São salvos por padrão dois arquivos em `reports/charts/`:
+`<experiment_id>-performance.png` (medianas) e
+`<experiment_id>-variability.png` (médias com barras de erro de ± desvio padrão).
+Use `--output-dir PATH` para alterar o diretório. O primeiro gráfico compara o
+tempo mediano do servidor antes/depois; o segundo evidencia a dispersão e a
+estabilidade das medições nas duas condições. O rótulo e a cor indicam `MELHORIA`,
 `REGRESSAO`, `SEM_MUDANCA_RELEVANTE` ou `INCONCLUSIVO`. Relatórios produzidos
 apenas por `analyze`, `benchmark` ou `optimize` não têm automaticamente as duas
 etapas necessárias: a aplicação de índices não executa benchmark antes/depois.
