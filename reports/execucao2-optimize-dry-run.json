@@ -1,0 +1,105 @@
+{
+  "after": null,
+  "applied_indexes": [],
+  "baseline": null,
+  "comparison": null,
+  "condition": {
+    "command": "optimize",
+    "environment": "lab",
+    "mode": "dry-run"
+  },
+  "dry_run": [
+    "CREATE INDEX \"ixo_estabelecimento_data_situacao_cadastral_idx_929b1efb\" ON \"cnpj\".\"estabelecimento\" USING btree (\"data_situacao_cadastral\")"
+  ],
+  "estimated_plan": [
+    {
+      "JIT": {
+        "Functions": 7,
+        "Options": {
+          "Deforming": true,
+          "Expressions": true,
+          "Inlining": false,
+          "Optimization": false
+        }
+      },
+      "Plan": {
+        "Async Capable": false,
+        "Node Type": "Aggregate",
+        "Parallel Aware": false,
+        "Partial Mode": "Finalize",
+        "Plan Rows": 1,
+        "Plan Width": 8,
+        "Plans": [
+          {
+            "Async Capable": false,
+            "Node Type": "Gather",
+            "Parallel Aware": false,
+            "Parent Relationship": "Outer",
+            "Plan Rows": 2,
+            "Plan Width": 8,
+            "Plans": [
+              {
+                "Async Capable": false,
+                "Node Type": "Aggregate",
+                "Parallel Aware": false,
+                "Parent Relationship": "Outer",
+                "Partial Mode": "Partial",
+                "Plan Rows": 1,
+                "Plan Width": 8,
+                "Plans": [
+                  {
+                    "Alias": "e",
+                    "Async Capable": false,
+                    "Filter": "((data_situacao_cadastral >= '2010-01-01'::date) AND (data_situacao_cadastral <= '2020-01-01'::date))",
+                    "Node Type": "Seq Scan",
+                    "Parallel Aware": true,
+                    "Parent Relationship": "Outer",
+                    "Plan Rows": 765415,
+                    "Plan Width": 4,
+                    "Relation Name": "estabelecimento",
+                    "Startup Cost": 0.0,
+                    "Total Cost": 140838.77
+                  }
+                ],
+                "Startup Cost": 142752.31,
+                "Strategy": "Plain",
+                "Total Cost": 142752.32
+              }
+            ],
+            "Single Copy": false,
+            "Startup Cost": 143752.31,
+            "Total Cost": 143752.52,
+            "Workers Planned": 2
+          }
+        ],
+        "Startup Cost": 143752.53,
+        "Strategy": "Plain",
+        "Total Cost": 143752.54
+      }
+    }
+  ],
+  "experiment_id": "fec64e9258e46c41",
+  "generated_at": "2026-10-19T23:35:33.683985+00:00",
+  "limitations": [
+    "O modo dry-run não modifica o banco."
+  ],
+  "query": "SELECT count(e.data_situacao_cadastral) AS contagemEmpresasDecada2010 FROM cnpj.estabelecimento AS e WHERE e.data_situacao_cadastral BETWEEN DATE '2010-01-01' AND DATE '2020-01-01'",
+  "recommendations": [
+    {
+      "access_method": "btree",
+      "columns": [
+        "data_situacao_cadastral"
+      ],
+      "evidence": "((data_situacao_cadastral >= '2010-01-01'::date) AND (data_situacao_cadastral <= '2020-01-01'::date))",
+      "evidence_kind": "Filter",
+      "justification": "Recomendar índice B-tree simples em cnpj.estabelecimento (data_situacao_cadastral) por evidência de Filter.",
+      "limitations": [
+        "A recomendação é preliminar e deve ser confirmada por medições.",
+        "Não são gerados índices compostos automaticamente."
+      ],
+      "schema": "cnpj",
+      "status": "RECOMENDADO",
+      "table": "estabelecimento"
+    }
+  ]
+}

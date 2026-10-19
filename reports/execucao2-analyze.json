@@ -1,0 +1,101 @@
+{
+  "after": null,
+  "applied_indexes": [],
+  "baseline": null,
+  "comparison": null,
+  "condition": {
+    "command": "analyze",
+    "environment": "lab"
+  },
+  "estimated_plan": [
+    {
+      "JIT": {
+        "Functions": 7,
+        "Options": {
+          "Deforming": true,
+          "Expressions": true,
+          "Inlining": false,
+          "Optimization": false
+        }
+      },
+      "Plan": {
+        "Async Capable": false,
+        "Node Type": "Aggregate",
+        "Parallel Aware": false,
+        "Partial Mode": "Finalize",
+        "Plan Rows": 1,
+        "Plan Width": 8,
+        "Plans": [
+          {
+            "Async Capable": false,
+            "Node Type": "Gather",
+            "Parallel Aware": false,
+            "Parent Relationship": "Outer",
+            "Plan Rows": 2,
+            "Plan Width": 8,
+            "Plans": [
+              {
+                "Async Capable": false,
+                "Node Type": "Aggregate",
+                "Parallel Aware": false,
+                "Parent Relationship": "Outer",
+                "Partial Mode": "Partial",
+                "Plan Rows": 1,
+                "Plan Width": 8,
+                "Plans": [
+                  {
+                    "Alias": "e",
+                    "Async Capable": false,
+                    "Filter": "((data_situacao_cadastral >= '2010-01-01'::date) AND (data_situacao_cadastral <= '2020-01-01'::date))",
+                    "Node Type": "Seq Scan",
+                    "Parallel Aware": true,
+                    "Parent Relationship": "Outer",
+                    "Plan Rows": 765415,
+                    "Plan Width": 4,
+                    "Relation Name": "estabelecimento",
+                    "Startup Cost": 0.0,
+                    "Total Cost": 140838.77
+                  }
+                ],
+                "Startup Cost": 142752.31,
+                "Strategy": "Plain",
+                "Total Cost": 142752.32
+              }
+            ],
+            "Single Copy": false,
+            "Startup Cost": 143752.31,
+            "Total Cost": 143752.52,
+            "Workers Planned": 2
+          }
+        ],
+        "Startup Cost": 143752.53,
+        "Strategy": "Plain",
+        "Total Cost": 143752.54
+      }
+    }
+  ],
+  "experiment_id": "5fffaf5f3debfbc1",
+  "generated_at": "2026-10-19T23:35:19.259844+00:00",
+  "limitations": [
+    "A análise não altera a estrutura do banco."
+  ],
+  "query": "SELECT count(e.data_situacao_cadastral) AS contagemEmpresasDecada2010 FROM cnpj.estabelecimento AS e WHERE e.data_situacao_cadastral BETWEEN DATE '2010-01-01' AND DATE '2020-01-01'",
+  "recommendations": [
+    {
+      "access_method": "btree",
+      "columns": [
+        "data_situacao_cadastral"
+      ],
+      "evidence": "((data_situacao_cadastral >= '2010-01-01'::date) AND (data_situacao_cadastral <= '2020-01-01'::date))",
+      "evidence_kind": "Filter",
+      "justification": "Recomendar índice B-tree simples em cnpj.estabelecimento (data_situacao_cadastral) por evidência de Filter.",
+      "limitations": [
+        "A recomendação é preliminar e deve ser confirmada por medições.",
+        "Não são gerados índices compostos automaticamente."
+      ],
+      "schema": "cnpj",
+      "status": "RECOMENDADO",
+      "table": "estabelecimento"
+    }
+  ]
+}
