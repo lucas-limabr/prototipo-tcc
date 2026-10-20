@@ -1,0 +1,90 @@
+{
+  "after": null,
+  "applied_indexes": [
+    {
+      "created_at": "2026-10-20T00:10:38.456200+00:00",
+      "ddl": {
+        "column": "logradouro",
+        "name": "ixo_estabelecimento_logradouro_idx_c2128043",
+        "schema": "cnpj",
+        "statement": "Composed([SQL('CREATE INDEX '), Identifier('ixo_estabelecimento_logradouro_idx_c2128043'), SQL(' ON '), Identifier('cnpj'), SQL('.'), Identifier('estabelecimento'), SQL(' USING btree ('), Identifier('logradouro'), SQL(')')])",
+        "table": "estabelecimento"
+      },
+      "message": "Índice criado e tabela analisada.",
+      "status": "CREATED"
+    }
+  ],
+  "baseline": null,
+  "comparison": null,
+  "condition": {
+    "command": "optimize",
+    "environment": "lab",
+    "mode": "apply"
+  },
+  "dry_run": [
+    "CREATE INDEX \"ixo_estabelecimento_logradouro_idx_c2128043\" ON \"cnpj\".\"estabelecimento\" USING btree (\"logradouro\")"
+  ],
+  "estimated_plan": [
+    {
+      "JIT": {
+        "Functions": 4,
+        "Options": {
+          "Deforming": true,
+          "Expressions": true,
+          "Inlining": false,
+          "Optimization": false
+        }
+      },
+      "Plan": {
+        "Async Capable": false,
+        "Node Type": "Gather",
+        "Parallel Aware": false,
+        "Plan Rows": 78,
+        "Plan Width": 16,
+        "Plans": [
+          {
+            "Alias": "e",
+            "Async Capable": false,
+            "Filter": "(logradouro = 'Avenida Rio Branco'::text)",
+            "Node Type": "Seq Scan",
+            "Parallel Aware": true,
+            "Parent Relationship": "Outer",
+            "Plan Rows": 32,
+            "Plan Width": 16,
+            "Relation Name": "estabelecimento",
+            "Startup Cost": 0.0,
+            "Total Cost": 135906.17
+          }
+        ],
+        "Single Copy": false,
+        "Startup Cost": 1000.0,
+        "Total Cost": 136913.97,
+        "Workers Planned": 2
+      }
+    }
+  ],
+  "experiment_id": "1ab1c9d5c52fe4ac",
+  "generated_at": "2026-10-20T00:10:47.241427+00:00",
+  "limitations": [
+    "A aplicação foi autorizada explicitamente no laboratório."
+  ],
+  "query": "SELECT e.logradouro FROM cnpj.estabelecimento AS e WHERE e.logradouro = 'Avenida Rio Branco'",
+  "recommendations": [
+    {
+      "access_method": "btree",
+      "columns": [
+        "logradouro"
+      ],
+      "evidence": "(logradouro = 'Avenida Rio Branco'::text)",
+      "evidence_kind": "Filter",
+      "justification": "Recomendar índice B-tree simples em cnpj.estabelecimento (logradouro) por evidência de Filter.",
+      "limitations": [
+        "A recomendação é preliminar e deve ser confirmada por medições.",
+        "Não são gerados índices compostos automaticamente."
+      ],
+      "schema": "cnpj",
+      "status": "RECOMENDADO",
+      "table": "estabelecimento"
+    }
+  ]
+}
