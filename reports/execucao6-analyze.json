@@ -1,0 +1,93 @@
+{
+  "after": null,
+  "applied_indexes": [],
+  "baseline": null,
+  "comparison": null,
+  "condition": {
+    "command": "analyze",
+    "environment": "lab"
+  },
+  "estimated_plan": [
+    {
+      "Plan": {
+        "Async Capable": false,
+        "Node Type": "Gather Merge",
+        "Parallel Aware": false,
+        "Plan Rows": 125896,
+        "Plan Width": 35,
+        "Plans": [
+          {
+            "Async Capable": false,
+            "Node Type": "Sort",
+            "Parallel Aware": false,
+            "Parent Relationship": "Outer",
+            "Plan Rows": 62948,
+            "Plan Width": 35,
+            "Plans": [
+              {
+                "Alias": "e",
+                "Async Capable": false,
+                "Filter": "(porte = 3)",
+                "Node Type": "Seq Scan",
+                "Parallel Aware": true,
+                "Parent Relationship": "Outer",
+                "Plan Rows": 62948,
+                "Plan Width": 35,
+                "Relation Name": "empresa",
+                "Startup Cost": 0.0,
+                "Total Cost": 78287.67
+              }
+            ],
+            "Sort Key": [
+              "razao_social"
+            ],
+            "Startup Cost": 83305.22,
+            "Total Cost": 83462.59
+          }
+        ],
+        "Startup Cost": 84305.24,
+        "Total Cost": 98994.13,
+        "Workers Planned": 2
+      }
+    }
+  ],
+  "experiment_id": "760ebff8716f55e3",
+  "generated_at": "2026-10-26T19:00:28.095370+00:00",
+  "limitations": [
+    "A análise não altera a estrutura do banco."
+  ],
+  "query": "select e.razao_social   \nfrom cnpj.empresa e \nwhere e.porte = 3\norder by e.razao_social;",
+  "recommendations": [
+    {
+      "access_method": "btree",
+      "columns": [
+        "razao_social"
+      ],
+      "evidence": "razao_social",
+      "evidence_kind": "Sort Key",
+      "justification": "Ordenação por razao_social foi observada, mas isso isoladamente não prova benefício de um índice.",
+      "limitations": [
+        "Não há seletividade, frequência da consulta ou custo comparativo pré/pós-indexação."
+      ],
+      "schema": "cnpj",
+      "status": "INDETERMINADO",
+      "table": "empresa"
+    },
+    {
+      "access_method": "btree",
+      "columns": [
+        "porte"
+      ],
+      "evidence": "(porte = 3)",
+      "evidence_kind": "Filter",
+      "justification": "Recomendar índice B-tree simples em cnpj.empresa (porte) por evidência de Filter.",
+      "limitations": [
+        "A recomendação é preliminar e deve ser confirmada por medições.",
+        "Não são gerados índices compostos automaticamente."
+      ],
+      "schema": "cnpj",
+      "status": "RECOMENDADO",
+      "table": "empresa"
+    }
+  ]
+}
