@@ -1,0 +1,157 @@
+{
+  "after": null,
+  "applied_indexes": [],
+  "baseline": null,
+  "comparison": null,
+  "condition": {
+    "command": "analyze",
+    "environment": "lab"
+  },
+  "estimated_plan": [
+    {
+      "JIT": {
+        "Functions": 13,
+        "Options": {
+          "Deforming": true,
+          "Expressions": true,
+          "Inlining": false,
+          "Optimization": false
+        }
+      },
+      "Plan": {
+        "Async Capable": false,
+        "Node Type": "Gather Merge",
+        "Parallel Aware": false,
+        "Plan Rows": 121740,
+        "Plan Width": 62,
+        "Plans": [
+          {
+            "Async Capable": false,
+            "Node Type": "Sort",
+            "Parallel Aware": false,
+            "Parent Relationship": "Outer",
+            "Plan Rows": 60870,
+            "Plan Width": 62,
+            "Plans": [
+              {
+                "Async Capable": false,
+                "Hash Cond": "(e2.cnpj_basico = e.cnpj_basico)",
+                "Inner Unique": true,
+                "Join Type": "Inner",
+                "Node Type": "Hash Join",
+                "Parallel Aware": true,
+                "Parent Relationship": "Outer",
+                "Plan Rows": 60870,
+                "Plan Width": 62,
+                "Plans": [
+                  {
+                    "Alias": "e2",
+                    "Async Capable": false,
+                    "Node Type": "Seq Scan",
+                    "Parallel Aware": true,
+                    "Parent Relationship": "Outer",
+                    "Plan Rows": 1980602,
+                    "Plan Width": 36,
+                    "Relation Name": "estabelecimento",
+                    "Startup Cost": 0.0,
+                    "Total Cost": 130955.02
+                  },
+                  {
+                    "Async Capable": false,
+                    "Node Type": "Hash",
+                    "Parallel Aware": true,
+                    "Parent Relationship": "Inner",
+                    "Plan Rows": 59668,
+                    "Plan Width": 44,
+                    "Plans": [
+                      {
+                        "Alias": "e",
+                        "Async Capable": false,
+                        "Filter": "(porte = 3)",
+                        "Node Type": "Seq Scan",
+                        "Parallel Aware": true,
+                        "Parent Relationship": "Outer",
+                        "Plan Rows": 59668,
+                        "Plan Width": 44,
+                        "Relation Name": "empresa",
+                        "Startup Cost": 0.0,
+                        "Total Cost": 78295.42
+                      }
+                    ],
+                    "Startup Cost": 78295.42,
+                    "Total Cost": 78295.42
+                  }
+                ],
+                "Startup Cost": 79041.27,
+                "Total Cost": 215195.38
+              }
+            ],
+            "Sort Key": [
+              "e.razao_social",
+              "e2.nome_fantasia"
+            ],
+            "Startup Cost": 222321.55,
+            "Total Cost": 222473.72
+          }
+        ],
+        "Startup Cost": 223321.57,
+        "Total Cost": 237525.56,
+        "Workers Planned": 2
+      }
+    }
+  ],
+  "experiment_id": "bacfab1888586c00",
+  "generated_at": "2026-10-26T18:39:17.942712+00:00",
+  "limitations": [
+    "A análise não altera a estrutura do banco."
+  ],
+  "query": "select e.razao_social, e2.cnpj_ordem, e2.cnpj_dv, e2.nome_fantasia   \nfrom cnpj.empresa e \ninner join cnpj.estabelecimento e2\non e.cnpj_basico = e2.cnpj_basico\nwhere e.porte = 3\norder by e.razao_social, e2.nome_fantasia;",
+  "recommendations": [
+    {
+      "access_method": "btree",
+      "columns": [
+        "cnpj_basico"
+      ],
+      "evidence": "(e2.cnpj_basico = e.cnpj_basico)",
+      "evidence_kind": "Hash Cond",
+      "justification": "Não recomendar: já existe índice equivalente para cnpj.estabelecimento (cnpj_basico).",
+      "limitations": [
+        "A equivalência foi verificada pela primeira coluna da definição do índice."
+      ],
+      "schema": "cnpj",
+      "status": "JA_EXISTE_EQUIVALENTE",
+      "table": "estabelecimento"
+    },
+    {
+      "access_method": "btree",
+      "columns": [
+        "cnpj_basico"
+      ],
+      "evidence": "(e2.cnpj_basico = e.cnpj_basico)",
+      "evidence_kind": "Hash Cond",
+      "justification": "Não recomendar: já existe índice equivalente para cnpj.empresa (cnpj_basico).",
+      "limitations": [
+        "A equivalência foi verificada pela primeira coluna da definição do índice."
+      ],
+      "schema": "cnpj",
+      "status": "JA_EXISTE_EQUIVALENTE",
+      "table": "empresa"
+    },
+    {
+      "access_method": "btree",
+      "columns": [
+        "porte"
+      ],
+      "evidence": "(porte = 3)",
+      "evidence_kind": "Filter",
+      "justification": "Recomendar índice B-tree simples em cnpj.empresa (porte) por evidência de Filter.",
+      "limitations": [
+        "A recomendação é preliminar e deve ser confirmada por medições.",
+        "Não são gerados índices compostos automaticamente."
+      ],
+      "schema": "cnpj",
+      "status": "RECOMENDADO",
+      "table": "empresa"
+    }
+  ]
+}
