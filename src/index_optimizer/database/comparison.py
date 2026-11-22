@@ -87,7 +87,7 @@ def compare_benchmarks(
     indexes = tuple(result.ddl.name for result in applied_indexes if result.status == "CREATED")
     limitations = [
         "A comparação não demonstra causalidade nem significância estatística.",
-        "A métrica comparada é o tempo mediano do servidor em milissegundos.",
+        "A métrica comparada é o tempo mediano de execução da query em milissegundos.",
     ]
     if rows_equal is False:
         limitations.append("A quantidade de linhas observadas mudou entre as etapas.")

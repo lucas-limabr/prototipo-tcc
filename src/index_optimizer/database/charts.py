@@ -105,7 +105,8 @@ def save_performance_chart(
     values = [data.baseline_median_ms, data.after_median_ms]
     figure, axis = plt.subplots(figsize=(7, 4.5))
     bars = axis.bar(["Antes", "Depois"], values, color=["#607d8b", color])
-    axis.set_ylabel("Tempo mediano do servidor (ms)")
+    axis.set_ylim(0, max(values) * 1.2)
+    axis.set_ylabel("Tempo de execução da query (ms)")
     axis.set_title(f"Desempenho antes/depois — {data.status}")
     axis.grid(axis="y", alpha=0.25)
     axis.set_axisbelow(True)
@@ -149,7 +150,11 @@ def save_variability_chart(
         color=["#607d8b", color],
         error_kw={"ecolor": "#263238", "elinewidth": 1.2},
     )
-    axis.set_ylabel("Tempo médio do servidor (ms)")
+    highest_error_bar = max(
+        mean + deviation for mean, deviation in zip(means, deviations, strict=True)
+    )
+    axis.set_ylim(0, highest_error_bar * 1.2)
+    axis.set_ylabel("Tempo de execução da query (ms)")
     axis.set_title(f"Variabilidade antes/depois — {data.status}")
     axis.grid(axis="y", alpha=0.25)
     axis.set_axisbelow(True)

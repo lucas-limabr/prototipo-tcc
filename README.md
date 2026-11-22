@@ -40,7 +40,7 @@ São salvos por padrão dois arquivos em `reports/charts/`:
 `<experiment_id>-performance.png` (medianas) e
 `<experiment_id>-variability.png` (médias com barras de erro de ± desvio padrão).
 Use `--output-dir PATH` para alterar o diretório. O primeiro gráfico compara o
-tempo mediano do servidor antes/depois; o segundo evidencia a dispersão e a
+tempo mediano da query antes/depois; o segundo evidencia a dispersão e a
 estabilidade das medições nas duas condições. O rótulo e a cor indicam `MELHORIA`,
 `REGRESSAO`, `SEM_MUDANCA_RELEVANTE` ou `INCONCLUSIVO`. Relatórios produzidos
 apenas por `analyze`, `benchmark` ou `optimize` não têm automaticamente as duas
