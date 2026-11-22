@@ -1,77 +1,135 @@
 {
-  "after": null,
-  "applied_indexes": [],
-  "baseline": null,
-  "comparison": null,
   "condition": {
     "command": "optimize",
     "environment": "lab",
     "mode": "dry-run"
   },
   "dry_run": [
-    "CREATE INDEX \"ixo_estabelecimento_logradouro_idx_c2128043\" ON \"cnpj\".\"estabelecimento\" USING btree (\"logradouro\")"
+    "CREATE INDEX \"ixo_empresa_porte_idx_093b17c7\" ON \"cnpj\".\"empresa\" USING btree (\"porte\")"
   ],
   "estimated_plan": [
     {
-      "JIT": {
-        "Functions": 4,
-        "Options": {
-          "Deforming": true,
-          "Expressions": true,
-          "Inlining": false,
-          "Optimization": false
-        }
-      },
       "Plan": {
         "Async Capable": false,
-        "Node Type": "Gather",
+        "Node Type": "Sort",
         "Parallel Aware": false,
-        "Plan Rows": 78,
-        "Plan Width": 16,
+        "Plan Rows": 3087,
+        "Plan Width": 58,
         "Plans": [
           {
-            "Alias": "e",
             "Async Capable": false,
-            "Filter": "(logradouro = 'Avenida Rio Branco'::text)",
-            "Node Type": "Seq Scan",
-            "Parallel Aware": true,
+            "Hash Cond": "(e2.cnpj_basico = e.cnpj_basico)",
+            "Inner Unique": true,
+            "Join Type": "Inner",
+            "Node Type": "Hash Join",
+            "Parallel Aware": false,
             "Parent Relationship": "Outer",
-            "Plan Rows": 32,
-            "Plan Width": 16,
-            "Relation Name": "estabelecimento",
-            "Startup Cost": 0.0,
-            "Total Cost": 135906.17
+            "Plan Rows": 3087,
+            "Plan Width": 58,
+            "Plans": [
+              {
+                "Alias": "e2",
+                "Async Capable": false,
+                "Node Type": "Seq Scan",
+                "Parallel Aware": false,
+                "Parent Relationship": "Outer",
+                "Plan Rows": 100000,
+                "Plan Width": 36,
+                "Relation Name": "estabelecimento",
+                "Startup Cost": 0.0,
+                "Total Cost": 3024.0
+              },
+              {
+                "Async Capable": false,
+                "Node Type": "Hash",
+                "Parallel Aware": false,
+                "Parent Relationship": "Inner",
+                "Plan Rows": 3087,
+                "Plan Width": 40,
+                "Plans": [
+                  {
+                    "Alias": "e",
+                    "Async Capable": false,
+                    "Filter": "(porte = 3)",
+                    "Node Type": "Seq Scan",
+                    "Parallel Aware": false,
+                    "Parent Relationship": "Outer",
+                    "Plan Rows": 3087,
+                    "Plan Width": 40,
+                    "Relation Name": "empresa",
+                    "Startup Cost": 0.0,
+                    "Total Cost": 2338.0
+                  }
+                ],
+                "Startup Cost": 2338.0,
+                "Total Cost": 2338.0
+              }
+            ],
+            "Startup Cost": 2376.59,
+            "Total Cost": 5663.1
           }
         ],
-        "Single Copy": false,
-        "Startup Cost": 1000.0,
-        "Total Cost": 136913.97,
-        "Workers Planned": 2
+        "Sort Key": [
+          "e.razao_social",
+          "e2.nome_fantasia"
+        ],
+        "Startup Cost": 5842.02,
+        "Total Cost": 5849.74
       }
     }
   ],
-  "experiment_id": "8735e33308448609",
-  "generated_at": "2026-10-20T00:10:38.105389+00:00",
+  "experiment_id": "f8e0bc33b10065cb",
+  "generated_at": "2026-11-22T20:15:27.626517+00:00",
   "limitations": [
     "O modo dry-run não modifica o banco."
   ],
-  "query": "SELECT e.logradouro FROM cnpj.estabelecimento AS e WHERE e.logradouro = 'Avenida Rio Branco'",
+  "query": "select e.razao_social, e2.cnpj_ordem, e2.cnpj_dv, e2.\nnome_fantasia\nfrom cnpj.empresa e\ninner join cnpj.estabelecimento e2\non e.cnpj_basico = e2.cnpj_basico\nwhere e.porte = 3\norder by e.razao_social, e2.nome_fantasia;",
   "recommendations": [
     {
       "access_method": "btree",
       "columns": [
-        "logradouro"
+        "cnpj_basico"
       ],
-      "evidence": "(logradouro = 'Avenida Rio Branco'::text)",
+      "evidence": "(e2.cnpj_basico = e.cnpj_basico)",
+      "evidence_kind": "Hash Cond",
+      "justification": "Não recomendar: já existe índice equivalente para cnpj.estabelecimento (cnpj_basico).",
+      "limitations": [
+        "A equivalência foi verificada pela primeira coluna da definição do índice."
+      ],
+      "schema": "cnpj",
+      "status": "JA_EXISTE_EQUIVALENTE",
+      "table": "estabelecimento"
+    },
+    {
+      "access_method": "btree",
+      "columns": [
+        "cnpj_basico"
+      ],
+      "evidence": "(e2.cnpj_basico = e.cnpj_basico)",
+      "evidence_kind": "Hash Cond",
+      "justification": "Não recomendar: já existe índice equivalente para cnpj.empresa (cnpj_basico).",
+      "limitations": [
+        "A equivalência foi verificada pela primeira coluna da definição do índice."
+      ],
+      "schema": "cnpj",
+      "status": "JA_EXISTE_EQUIVALENTE",
+      "table": "empresa"
+    },
+    {
+      "access_method": "btree",
+      "columns": [
+        "porte"
+      ],
+      "evidence": "(porte = 3)",
       "evidence_kind": "Filter",
-      "justification": "Recomendar índice B-tree simples em cnpj.estabelecimento (logradouro) por evidência de Filter.",
+      "justification": "Recomendar índice B-tree simples em cnpj.empresa (porte) por evidência de Filter.",
       "limitations": [
         "A recomendação é preliminar e deve ser confirmada por medições.",
         "Não são gerados índices compostos automaticamente."
       ],
       "schema": "cnpj",
       "status": "RECOMENDADO",
-      "table": "estabelecimento"
+      "table": "empresa"
     }
   ]
 }

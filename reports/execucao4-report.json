@@ -1,237 +1,223 @@
 {
   "after": {
-    "errors": [],
-    "max_server_time_ms": 0.082,
-    "mean_server_time_ms": 0.0772,
+    "max_server_time_ms": 291.718,
+    "mean_server_time_ms": 290.661,
     "measurements": [
       {
         "buffers": {
           "Local Hit Blocks": 0,
           "Local Read Blocks": 0,
           "Shared Dirtied Blocks": 0,
-          "Shared Hit Blocks": 6,
+          "Shared Hit Blocks": 3046,
           "Shared Read Blocks": 0,
           "Shared Written Blocks": 0,
           "Temp Read Blocks": 0,
           "Temp Written Blocks": 0
         },
-        "execution_time_ms": 0.074,
-        "planning_time_ms": 0.438,
-        "rows": 3.0,
+        "execution_time_ms": 291.718,
+        "planning_time_ms": 0.724,
+        "rows": 3206.0,
         "run": 1,
-        "server_time_ms": 0.074
+        "server_time_ms": 291.718
       },
       {
         "buffers": {
           "Local Hit Blocks": 0,
           "Local Read Blocks": 0,
           "Shared Dirtied Blocks": 0,
-          "Shared Hit Blocks": 6,
+          "Shared Hit Blocks": 3046,
           "Shared Read Blocks": 0,
           "Shared Written Blocks": 0,
           "Temp Read Blocks": 0,
           "Temp Written Blocks": 0
         },
-        "execution_time_ms": 0.076,
-        "planning_time_ms": 0.543,
-        "rows": 3.0,
+        "execution_time_ms": 291.03,
+        "planning_time_ms": 0.741,
+        "rows": 3206.0,
         "run": 2,
-        "server_time_ms": 0.076
+        "server_time_ms": 291.03
       },
       {
         "buffers": {
           "Local Hit Blocks": 0,
           "Local Read Blocks": 0,
           "Shared Dirtied Blocks": 0,
-          "Shared Hit Blocks": 6,
+          "Shared Hit Blocks": 3046,
           "Shared Read Blocks": 0,
           "Shared Written Blocks": 0,
           "Temp Read Blocks": 0,
           "Temp Written Blocks": 0
         },
-        "execution_time_ms": 0.076,
-        "planning_time_ms": 0.494,
-        "rows": 3.0,
+        "execution_time_ms": 290.473,
+        "planning_time_ms": 0.723,
+        "rows": 3206.0,
         "run": 3,
-        "server_time_ms": 0.076
+        "server_time_ms": 290.473
       },
       {
         "buffers": {
           "Local Hit Blocks": 0,
           "Local Read Blocks": 0,
           "Shared Dirtied Blocks": 0,
-          "Shared Hit Blocks": 6,
+          "Shared Hit Blocks": 3046,
           "Shared Read Blocks": 0,
           "Shared Written Blocks": 0,
           "Temp Read Blocks": 0,
           "Temp Written Blocks": 0
         },
-        "execution_time_ms": 0.082,
-        "planning_time_ms": 0.451,
-        "rows": 3.0,
+        "execution_time_ms": 290.163,
+        "planning_time_ms": 0.701,
+        "rows": 3206.0,
         "run": 4,
-        "server_time_ms": 0.082
+        "server_time_ms": 290.163
       },
       {
         "buffers": {
           "Local Hit Blocks": 0,
           "Local Read Blocks": 0,
           "Shared Dirtied Blocks": 0,
-          "Shared Hit Blocks": 6,
+          "Shared Hit Blocks": 3046,
           "Shared Read Blocks": 0,
           "Shared Written Blocks": 0,
           "Temp Read Blocks": 0,
           "Temp Written Blocks": 0
         },
-        "execution_time_ms": 0.078,
-        "planning_time_ms": 0.46,
-        "rows": 3.0,
+        "execution_time_ms": 289.921,
+        "planning_time_ms": 0.731,
+        "rows": 3206.0,
         "run": 5,
-        "server_time_ms": 0.078
+        "server_time_ms": 289.921
       }
     ],
-    "median_server_time_ms": 0.076,
-    "min_server_time_ms": 0.074,
+    "median_server_time_ms": 290.473,
+    "min_server_time_ms": 289.921,
     "requested_runs": 5,
-    "sql": "SELECT e.logradouro FROM cnpj.estabelecimento AS e WHERE e.logradouro = 'Avenida Rio Branco'",
-    "stdev_server_time_ms": 0.0030331501776206227,
+    "sql": "select e.razao_social, e2.cnpj_ordem, e2.cnpj_dv, e2.\nnome_fantasia\nfrom cnpj.empresa e\ninner join cnpj.estabelecimento e2\non e.cnpj_basico = e2.cnpj_basico\nwhere e.porte = 3\norder by e.razao_social, e2.nome_fantasia",
+    "stdev_server_time_ms": 0.7218652921425183,
     "warmups": 2
   },
-  "applied_indexes": [],
   "baseline": {
-    "errors": [],
-    "max_server_time_ms": 316.598,
-    "mean_server_time_ms": 280.491,
+    "max_server_time_ms": 299.87,
+    "mean_server_time_ms": 297.598,
     "measurements": [
       {
         "buffers": {
           "Local Hit Blocks": 0,
           "Local Read Blocks": 0,
           "Shared Dirtied Blocks": 0,
-          "Shared Hit Blocks": 7550,
-          "Shared Read Blocks": 103599,
+          "Shared Hit Blocks": 3115,
+          "Shared Read Blocks": 0,
           "Shared Written Blocks": 0,
           "Temp Read Blocks": 0,
           "Temp Written Blocks": 0
         },
-        "execution_time_ms": 257.014,
-        "planning_time_ms": 0.647,
-        "rows": 3.0,
+        "execution_time_ms": 299.87,
+        "planning_time_ms": 0.707,
+        "rows": 3206.0,
         "run": 1,
-        "server_time_ms": 257.014
+        "server_time_ms": 299.87
       },
       {
         "buffers": {
           "Local Hit Blocks": 0,
           "Local Read Blocks": 0,
           "Shared Dirtied Blocks": 0,
-          "Shared Hit Blocks": 7646,
-          "Shared Read Blocks": 103503,
+          "Shared Hit Blocks": 3115,
+          "Shared Read Blocks": 0,
           "Shared Written Blocks": 0,
           "Temp Read Blocks": 0,
           "Temp Written Blocks": 0
         },
-        "execution_time_ms": 269.091,
-        "planning_time_ms": 0.428,
-        "rows": 3.0,
+        "execution_time_ms": 297.47,
+        "planning_time_ms": 0.704,
+        "rows": 3206.0,
         "run": 2,
-        "server_time_ms": 269.091
+        "server_time_ms": 297.47
       },
       {
         "buffers": {
           "Local Hit Blocks": 0,
           "Local Read Blocks": 0,
           "Shared Dirtied Blocks": 0,
-          "Shared Hit Blocks": 7742,
-          "Shared Read Blocks": 103407,
+          "Shared Hit Blocks": 3115,
+          "Shared Read Blocks": 0,
           "Shared Written Blocks": 0,
           "Temp Read Blocks": 0,
           "Temp Written Blocks": 0
         },
-        "execution_time_ms": 305.895,
-        "planning_time_ms": 0.453,
-        "rows": 3.0,
+        "execution_time_ms": 297.207,
+        "planning_time_ms": 0.719,
+        "rows": 3206.0,
         "run": 3,
-        "server_time_ms": 305.895
+        "server_time_ms": 297.207
       },
       {
         "buffers": {
           "Local Hit Blocks": 0,
           "Local Read Blocks": 0,
           "Shared Dirtied Blocks": 0,
-          "Shared Hit Blocks": 7838,
-          "Shared Read Blocks": 103311,
+          "Shared Hit Blocks": 3115,
+          "Shared Read Blocks": 0,
           "Shared Written Blocks": 0,
           "Temp Read Blocks": 0,
           "Temp Written Blocks": 0
         },
-        "execution_time_ms": 316.598,
-        "planning_time_ms": 0.398,
-        "rows": 3.0,
+        "execution_time_ms": 296.846,
+        "planning_time_ms": 0.697,
+        "rows": 3206.0,
         "run": 4,
-        "server_time_ms": 316.598
+        "server_time_ms": 296.846
       },
       {
         "buffers": {
           "Local Hit Blocks": 0,
           "Local Read Blocks": 0,
           "Shared Dirtied Blocks": 0,
-          "Shared Hit Blocks": 7934,
-          "Shared Read Blocks": 103215,
+          "Shared Hit Blocks": 3115,
+          "Shared Read Blocks": 0,
           "Shared Written Blocks": 0,
           "Temp Read Blocks": 0,
           "Temp Written Blocks": 0
         },
-        "execution_time_ms": 253.857,
-        "planning_time_ms": 0.372,
-        "rows": 3.0,
+        "execution_time_ms": 296.597,
+        "planning_time_ms": 0.725,
+        "rows": 3206.0,
         "run": 5,
-        "server_time_ms": 253.857
+        "server_time_ms": 296.597
       }
     ],
-    "median_server_time_ms": 269.091,
-    "min_server_time_ms": 253.857,
+    "median_server_time_ms": 297.207,
+    "min_server_time_ms": 296.597,
     "requested_runs": 5,
-    "sql": "SELECT e.logradouro FROM cnpj.estabelecimento AS e WHERE e.logradouro = 'Avenida Rio Branco'",
-    "stdev_server_time_ms": 28.89454165582143,
+    "sql": "select e.razao_social, e2.cnpj_ordem, e2.cnpj_dv, e2.\nnome_fantasia\nfrom cnpj.empresa e\ninner join cnpj.estabelecimento e2\non e.cnpj_basico = e2.cnpj_basico\nwhere e.porte = 3\norder by e.razao_social, e2.nome_fantasia",
+    "stdev_server_time_ms": 1.313273962279011,
     "warmups": 2
   },
   "comparison": {
-    "after_median_ms": 0.076,
-    "baseline_median_ms": 269.091,
-    "created_indexes": [
-      "ixo_estabelecimento_logradouro_idx_c2128043"
-    ],
-    "explanation": "Mediana antes: 269.091 ms; depois: 0.076 ms; variação: 99.97%; speedup: 3540.671x.",
+    "after_median_ms": 290.473,
+    "baseline_median_ms": 297.207,
+    "explanation": "Mediana antes: 297.207 ms; depois: 290.473 ms; variação: 2.27%; speedup: 1.023x.",
     "limitations": [
       "A comparação não demonstra causalidade nem significância estatística.",
-      "A métrica comparada é o tempo mediano do servidor em milissegundos.",
-      "Execução realizada no PostgreSQL local com a carga CNPJ disponível."
+      "A métrica comparada é o tempo mediano de execução da query em milissegundos."
     ],
-    "plan_changed": null,
-    "reduction_percent": 99.97175676629838,
+    "reduction_percent": 2.2657609006517276,
     "result_rows_equal": true,
-    "speedup": 3540.671052631579,
-    "sql": "SELECT e.logradouro FROM cnpj.estabelecimento AS e WHERE e.logradouro = 'Avenida Rio Branco'",
-    "status": "MELHORIA"
+    "speedup": 1.0231828775824259,
+    "sql": "select e.razao_social, e2.cnpj_ordem, e2.cnpj_dv, e2.\nnome_fantasia\nfrom cnpj.empresa e\ninner join cnpj.estabelecimento e2\non e.cnpj_basico = e2.cnpj_basico\nwhere e.porte = 3\norder by e.razao_social, e2.nome_fantasia",
+    "status": "SEM_MUDANCA_RELEVANTE"
   },
   "condition": {
     "command": "benchmark-comparison",
-    "dataset": "CNPJ 2026-10",
-    "empresa_rows": 4659598,
     "environment": "lab",
-    "estabelecimento_rows": 4753435,
     "runs": 5,
     "warmups": 2
   },
-  "estimated_plan": null,
-  "experiment_id": "e9ea79ee419d6d47",
-  "generated_at": "2026-10-20T00:11:07.686874+00:00",
+  "experiment_id": "484517ff0e7f7101",
+  "generated_at": "2026-11-22T20:15:42.023557+00:00",
   "limitations": [
     "A comparação não demonstra causalidade nem significância estatística.",
-    "A métrica comparada é o tempo mediano do servidor em milissegundos.",
-    "Execução realizada no PostgreSQL local com a carga CNPJ disponível."
+    "A métrica comparada é o tempo mediano de execução da query em milissegundos."
   ],
-  "query": "SELECT e.logradouro FROM cnpj.estabelecimento AS e WHERE e.logradouro = 'Avenida Rio Branco'",
-  "recommendations": []
+  "query": "select e.razao_social, e2.cnpj_ordem, e2.cnpj_dv, e2.\nnome_fantasia\nfrom cnpj.empresa e\ninner join cnpj.estabelecimento e2\non e.cnpj_basico = e2.cnpj_basico\nwhere e.porte = 3\norder by e.razao_social, e2.nome_fantasia"
 }
