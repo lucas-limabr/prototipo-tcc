@@ -113,7 +113,13 @@ def report_to_markdown(report: ExperimentReport) -> str:
 
 def _json_safe(value: Any) -> Any:
     if isinstance(value, dict):
-        return {key: _json_safe(item) for key, item in value.items()}
+        result = {}
+        for key, item in value.items():
+            safe_item = _json_safe(item)
+            if safe_item is None or safe_item == [] or safe_item == {}:
+                continue
+            result[key] = safe_item
+        return result
     if isinstance(value, (list, tuple)):
         return [_json_safe(item) for item in value]
     if hasattr(value, "value") and isinstance(value.value, str):
