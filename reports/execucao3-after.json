@@ -1,115 +1,108 @@
 {
-  "after": null,
-  "applied_indexes": [],
   "baseline": {
-    "errors": [],
-    "max_server_time_ms": 4663.344,
-    "mean_server_time_ms": 4527.3279999999995,
+    "max_server_time_ms": 0.052,
+    "mean_server_time_ms": 0.0508,
     "measurements": [
       {
         "buffers": {
           "Local Hit Blocks": 0,
           "Local Read Blocks": 0,
           "Shared Dirtied Blocks": 0,
-          "Shared Hit Blocks": 3798,
+          "Shared Hit Blocks": 3,
           "Shared Read Blocks": 0,
           "Shared Written Blocks": 0,
           "Temp Read Blocks": 0,
           "Temp Written Blocks": 0
         },
-        "execution_time_ms": 4446.181,
-        "planning_time_ms": 0.383,
-        "rows": 1.0,
+        "execution_time_ms": 0.051,
+        "planning_time_ms": 0.417,
+        "rows": 0.0,
         "run": 1,
-        "server_time_ms": 4446.181
+        "server_time_ms": 0.051
       },
       {
         "buffers": {
           "Local Hit Blocks": 0,
           "Local Read Blocks": 0,
           "Shared Dirtied Blocks": 0,
-          "Shared Hit Blocks": 3798,
-          "Shared Read Blocks": 1,
+          "Shared Hit Blocks": 3,
+          "Shared Read Blocks": 0,
           "Shared Written Blocks": 0,
           "Temp Read Blocks": 0,
           "Temp Written Blocks": 0
         },
-        "execution_time_ms": 4579.414,
-        "planning_time_ms": 0.385,
-        "rows": 1.0,
+        "execution_time_ms": 0.05,
+        "planning_time_ms": 0.44,
+        "rows": 0.0,
         "run": 2,
-        "server_time_ms": 4579.414
+        "server_time_ms": 0.05
       },
       {
         "buffers": {
           "Local Hit Blocks": 0,
           "Local Read Blocks": 0,
           "Shared Dirtied Blocks": 0,
-          "Shared Hit Blocks": 3799,
+          "Shared Hit Blocks": 3,
           "Shared Read Blocks": 0,
           "Shared Written Blocks": 0,
           "Temp Read Blocks": 0,
           "Temp Written Blocks": 0
         },
-        "execution_time_ms": 4663.344,
-        "planning_time_ms": 0.445,
-        "rows": 1.0,
+        "execution_time_ms": 0.051,
+        "planning_time_ms": 0.398,
+        "rows": 0.0,
         "run": 3,
-        "server_time_ms": 4663.344
+        "server_time_ms": 0.051
       },
       {
         "buffers": {
           "Local Hit Blocks": 0,
           "Local Read Blocks": 0,
           "Shared Dirtied Blocks": 0,
-          "Shared Hit Blocks": 3799,
+          "Shared Hit Blocks": 3,
           "Shared Read Blocks": 0,
           "Shared Written Blocks": 0,
           "Temp Read Blocks": 0,
           "Temp Written Blocks": 0
         },
-        "execution_time_ms": 4508.988,
-        "planning_time_ms": 0.401,
-        "rows": 1.0,
+        "execution_time_ms": 0.05,
+        "planning_time_ms": 0.428,
+        "rows": 0.0,
         "run": 4,
-        "server_time_ms": 4508.988
+        "server_time_ms": 0.05
       },
       {
         "buffers": {
           "Local Hit Blocks": 0,
           "Local Read Blocks": 0,
           "Shared Dirtied Blocks": 0,
-          "Shared Hit Blocks": 3798,
+          "Shared Hit Blocks": 3,
           "Shared Read Blocks": 0,
           "Shared Written Blocks": 0,
           "Temp Read Blocks": 0,
           "Temp Written Blocks": 0
         },
-        "execution_time_ms": 4438.713,
-        "planning_time_ms": 0.385,
-        "rows": 1.0,
+        "execution_time_ms": 0.052,
+        "planning_time_ms": 0.431,
+        "rows": 0.0,
         "run": 5,
-        "server_time_ms": 4438.713
+        "server_time_ms": 0.052
       }
     ],
-    "median_server_time_ms": 4508.988,
-    "min_server_time_ms": 4438.713,
+    "median_server_time_ms": 0.051,
+    "min_server_time_ms": 0.05,
     "requested_runs": 5,
-    "sql": "SELECT count(e.identificador_matriz_filial) AS contagemMatriz FROM cnpj.estabelecimento AS e WHERE e.identificador_matriz_filial = 1",
-    "stdev_server_time_ms": 94.85134828509304,
+    "sql": "select e.logradouro from cnpj.estabelecimento as e\nwhere e.logradouro = 'Avenida Rio Branco'",
+    "stdev_server_time_ms": 0.0008366600265340729,
     "warmups": 2
   },
-  "comparison": null,
   "condition": {
     "command": "benchmark",
     "environment": "lab",
     "runs": 5,
     "warmups": 2
   },
-  "estimated_plan": null,
-  "experiment_id": "ede1639c02571579",
-  "generated_at": "2026-10-19T23:45:37.925119+00:00",
-  "limitations": [],
-  "query": "SELECT count(e.identificador_matriz_filial) AS contagemMatriz FROM cnpj.estabelecimento AS e WHERE e.identificador_matriz_filial = 1",
-  "recommendations": []
+  "experiment_id": "abfa0232f6d49b85",
+  "generated_at": "2026-11-22T20:12:42.149604+00:00",
+  "query": "select e.logradouro from cnpj.estabelecimento as e\nwhere e.logradouro = 'Avenida Rio Branco';"
 }
