@@ -123,7 +123,7 @@ vigente e a próxima etapa estão registrados no cabeçalho e na tabela de fases
 - `database/benchmark.py` executa aquecimentos separados das medições,
   repetições configuráveis e somente conta execuções válidas.
 - Cada medição usa `EXPLAIN (ANALYZE, BUFFERS, FORMAT JSON)` após nova validação
-  da consulta e em transação `READ ONLY`, registrando tempo do servidor, linhas
+  da consulta e em transação `READ ONLY`, registrando tempo da query, linhas
   observadas, buffers e erros separados dos tempos.
 - O resumo inclui média, mediana, mínimo, máximo e desvio padrão em milissegundos.
 - A execução exige pelo menos duas medições válidas e não confunde timeout ou
@@ -131,7 +131,7 @@ vigente e a próxima etapa estão registrados no cabeçalho e na tabela de fases
 - `pytest -q`: 59 passaram, 3 testes de integração foram excluídos pelo padrão;
   Ruff lint e formatação passaram.
 - Medição real no laboratório: 2 execuções válidas, 1 aquecimento, consulta
-  `SELECT cnpj_basico FROM cnpj.empresa LIMIT 1`, média de 0,079 ms no servidor.
+  `SELECT cnpj_basico FROM cnpj.empresa LIMIT 1`, média de 0,079 ms na query.
 
 ## Entregas da Fase 11
 
@@ -145,7 +145,7 @@ vigente e a próxima etapa estão registrados no cabeçalho e na tabela de fases
 
 ## Entregas da Fase 12
 
-- `database/comparison.py` compara medianas do servidor usando exatamente a
+- `database/comparison.py` compara medianas da query usando exatamente a
   mesma consulta e protocolo da linha de base.
 - O relatório calcula redução percentual e speedup, distinguindo melhoria,
   regressão, ausência de mudança relevante e resultado inconclusivo.

@@ -182,7 +182,8 @@ def _run_optimize(args: argparse.Namespace) -> int:
         ),
     )
     payload = json.loads(report_to_json(report))
-    payload["dry_run"] = rendered_ddls
+    if rendered_ddls:
+        payload["dry_run"] = rendered_ddls
     print(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True))
     return ExitCode.OK
 
@@ -206,9 +207,11 @@ def _run_cleanup(args: argparse.Namespace) -> int:
         "experimental_indexes": args.experimental_indexes,
         "message": message,
         "removed_count": result.removed_count,
-        "removed_indexes": [item.name for item in result.removed_indexes],
         "status": "SUCCESS",
     }
+    removed_indexes = [item.name for item in result.removed_indexes]
+    if removed_indexes:
+        payload["removed_indexes"] = removed_indexes
     print(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True))
     return ExitCode.OK
 
