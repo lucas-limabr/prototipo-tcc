@@ -1,115 +1,108 @@
 {
-  "after": null,
-  "applied_indexes": [],
   "baseline": {
-    "errors": [],
-    "max_server_time_ms": 1845.773,
-    "mean_server_time_ms": 1821.4964,
+    "max_server_time_ms": 101.445,
+    "mean_server_time_ms": 101.1646,
     "measurements": [
       {
         "buffers": {
           "Local Hit Blocks": 0,
           "Local Read Blocks": 0,
           "Shared Dirtied Blocks": 0,
-          "Shared Hit Blocks": 16643,
+          "Shared Hit Blocks": 33,
           "Shared Read Blocks": 0,
           "Shared Written Blocks": 0,
           "Temp Read Blocks": 0,
           "Temp Written Blocks": 0
         },
-        "execution_time_ms": 1820.611,
-        "planning_time_ms": 0.415,
+        "execution_time_ms": 101.445,
+        "planning_time_ms": 0.715,
         "rows": 1.0,
         "run": 1,
-        "server_time_ms": 1820.611
+        "server_time_ms": 101.445
       },
       {
         "buffers": {
           "Local Hit Blocks": 0,
           "Local Read Blocks": 0,
           "Shared Dirtied Blocks": 0,
-          "Shared Hit Blocks": 16644,
+          "Shared Hit Blocks": 33,
           "Shared Read Blocks": 0,
           "Shared Written Blocks": 0,
           "Temp Read Blocks": 0,
           "Temp Written Blocks": 0
         },
-        "execution_time_ms": 1814.262,
-        "planning_time_ms": 0.39,
+        "execution_time_ms": 101.312,
+        "planning_time_ms": 0.684,
         "rows": 1.0,
         "run": 2,
-        "server_time_ms": 1814.262
+        "server_time_ms": 101.312
       },
       {
         "buffers": {
           "Local Hit Blocks": 0,
           "Local Read Blocks": 0,
           "Shared Dirtied Blocks": 0,
-          "Shared Hit Blocks": 16643,
+          "Shared Hit Blocks": 33,
           "Shared Read Blocks": 0,
           "Shared Written Blocks": 0,
           "Temp Read Blocks": 0,
           "Temp Written Blocks": 0
         },
-        "execution_time_ms": 1845.773,
-        "planning_time_ms": 0.602,
+        "execution_time_ms": 100.599,
+        "planning_time_ms": 0.716,
         "rows": 1.0,
         "run": 3,
-        "server_time_ms": 1845.773
+        "server_time_ms": 100.599
       },
       {
         "buffers": {
           "Local Hit Blocks": 0,
           "Local Read Blocks": 0,
           "Shared Dirtied Blocks": 0,
-          "Shared Hit Blocks": 16643,
+          "Shared Hit Blocks": 33,
           "Shared Read Blocks": 0,
           "Shared Written Blocks": 0,
           "Temp Read Blocks": 0,
           "Temp Written Blocks": 0
         },
-        "execution_time_ms": 1802.711,
-        "planning_time_ms": 0.447,
+        "execution_time_ms": 101.196,
+        "planning_time_ms": 0.693,
         "rows": 1.0,
         "run": 4,
-        "server_time_ms": 1802.711
+        "server_time_ms": 101.196
       },
       {
         "buffers": {
           "Local Hit Blocks": 0,
           "Local Read Blocks": 0,
           "Shared Dirtied Blocks": 0,
-          "Shared Hit Blocks": 16637,
+          "Shared Hit Blocks": 33,
           "Shared Read Blocks": 0,
           "Shared Written Blocks": 0,
           "Temp Read Blocks": 0,
           "Temp Written Blocks": 0
         },
-        "execution_time_ms": 1824.125,
-        "planning_time_ms": 0.423,
+        "execution_time_ms": 101.271,
+        "planning_time_ms": 0.665,
         "rows": 1.0,
         "run": 5,
-        "server_time_ms": 1824.125
+        "server_time_ms": 101.271
       }
     ],
-    "median_server_time_ms": 1820.611,
-    "min_server_time_ms": 1802.711,
+    "median_server_time_ms": 101.271,
+    "min_server_time_ms": 100.599,
     "requested_runs": 5,
-    "sql": "SELECT count(e.data_situacao_cadastral) AS contagemEmpresasDecada2010 FROM cnpj.estabelecimento AS e WHERE e.data_situacao_cadastral BETWEEN DATE '2010-01-01' AND DATE '2020-01-01'",
-    "stdev_server_time_ms": 15.8293601829006,
+    "sql": "SELECT count(e.data_situacao_cadastral) AS contagem\nFROM cnpj.estabelecimento AS e WHERE e.data_situacao_cadastral BETWEEN DATE '2010-01-01'\nAND DATE '2020-01-01'",
+    "stdev_server_time_ms": 0.3288469248753861,
     "warmups": 2
   },
-  "comparison": null,
   "condition": {
     "command": "benchmark",
     "environment": "lab",
     "runs": 5,
     "warmups": 2
   },
-  "estimated_plan": null,
-  "experiment_id": "69e1c3b6df7f9a6d",
-  "generated_at": "2026-10-19T23:35:49.692572+00:00",
-  "limitations": [],
-  "query": "SELECT count(e.data_situacao_cadastral) AS contagemEmpresasDecada2010 FROM cnpj.estabelecimento AS e WHERE e.data_situacao_cadastral BETWEEN DATE '2010-01-01' AND DATE '2020-01-01'",
-  "recommendations": []
+  "experiment_id": "f4d159e3d2a03c71",
+  "generated_at": "2026-11-22T19:04:32.295590+00:00",
+  "query": "SELECT count(e.data_situacao_cadastral) AS contagem\nFROM cnpj.estabelecimento AS e WHERE e.data_situacao_cadastral BETWEEN DATE '2010-01-01'\nAND DATE '2020-01-01';"
 }

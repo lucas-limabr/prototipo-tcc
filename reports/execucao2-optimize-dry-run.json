@@ -1,8 +1,4 @@
 {
-  "after": null,
-  "applied_indexes": [],
-  "baseline": null,
-  "comparison": null,
   "condition": {
     "command": "optimize",
     "environment": "lab",
@@ -13,77 +9,40 @@
   ],
   "estimated_plan": [
     {
-      "JIT": {
-        "Functions": 7,
-        "Options": {
-          "Deforming": true,
-          "Expressions": true,
-          "Inlining": false,
-          "Optimization": false
-        }
-      },
       "Plan": {
         "Async Capable": false,
         "Node Type": "Aggregate",
         "Parallel Aware": false,
-        "Partial Mode": "Finalize",
+        "Partial Mode": "Simple",
         "Plan Rows": 1,
         "Plan Width": 8,
         "Plans": [
           {
+            "Alias": "e",
             "Async Capable": false,
-            "Node Type": "Gather",
+            "Filter": "((data_situacao_cadastral >= '2010-01-01'::date) AND (data_situacao_cadastral <= '2020-01-01'::date))",
+            "Node Type": "Seq Scan",
             "Parallel Aware": false,
             "Parent Relationship": "Outer",
-            "Plan Rows": 2,
-            "Plan Width": 8,
-            "Plans": [
-              {
-                "Async Capable": false,
-                "Node Type": "Aggregate",
-                "Parallel Aware": false,
-                "Parent Relationship": "Outer",
-                "Partial Mode": "Partial",
-                "Plan Rows": 1,
-                "Plan Width": 8,
-                "Plans": [
-                  {
-                    "Alias": "e",
-                    "Async Capable": false,
-                    "Filter": "((data_situacao_cadastral >= '2010-01-01'::date) AND (data_situacao_cadastral <= '2020-01-01'::date))",
-                    "Node Type": "Seq Scan",
-                    "Parallel Aware": true,
-                    "Parent Relationship": "Outer",
-                    "Plan Rows": 765415,
-                    "Plan Width": 4,
-                    "Relation Name": "estabelecimento",
-                    "Startup Cost": 0.0,
-                    "Total Cost": 140838.77
-                  }
-                ],
-                "Startup Cost": 142752.31,
-                "Strategy": "Plain",
-                "Total Cost": 142752.32
-              }
-            ],
-            "Single Copy": false,
-            "Startup Cost": 143752.31,
-            "Total Cost": 143752.52,
-            "Workers Planned": 2
+            "Plan Rows": 28261,
+            "Plan Width": 4,
+            "Relation Name": "estabelecimento",
+            "Startup Cost": 0.0,
+            "Total Cost": 3524.0
           }
         ],
-        "Startup Cost": 143752.53,
+        "Startup Cost": 3594.65,
         "Strategy": "Plain",
-        "Total Cost": 143752.54
+        "Total Cost": 3594.66
       }
     }
   ],
-  "experiment_id": "fec64e9258e46c41",
-  "generated_at": "2026-10-19T23:35:33.683985+00:00",
+  "experiment_id": "c4676fbeaa7fdda3",
+  "generated_at": "2026-11-22T19:04:28.868844+00:00",
   "limitations": [
     "O modo dry-run não modifica o banco."
   ],
-  "query": "SELECT count(e.data_situacao_cadastral) AS contagemEmpresasDecada2010 FROM cnpj.estabelecimento AS e WHERE e.data_situacao_cadastral BETWEEN DATE '2010-01-01' AND DATE '2020-01-01'",
+  "query": "SELECT count(e.data_situacao_cadastral) AS contagem\nFROM cnpj.estabelecimento AS e WHERE e.data_situacao_cadastral BETWEEN DATE '2010-01-01'\nAND DATE '2020-01-01';",
   "recommendations": [
     {
       "access_method": "btree",
