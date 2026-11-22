@@ -1,0 +1,108 @@
+{
+  "baseline": {
+    "max_server_time_ms": 102.687,
+    "mean_server_time_ms": 102.2086,
+    "measurements": [
+      {
+        "buffers": {
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Hit Blocks": 1964,
+          "Shared Read Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0
+        },
+        "execution_time_ms": 102.534,
+        "planning_time_ms": 0.654,
+        "rows": 1.0,
+        "run": 1,
+        "server_time_ms": 102.534
+      },
+      {
+        "buffers": {
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Hit Blocks": 1964,
+          "Shared Read Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0
+        },
+        "execution_time_ms": 101.47,
+        "planning_time_ms": 0.643,
+        "rows": 1.0,
+        "run": 2,
+        "server_time_ms": 101.47
+      },
+      {
+        "buffers": {
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Hit Blocks": 1964,
+          "Shared Read Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0
+        },
+        "execution_time_ms": 102.687,
+        "planning_time_ms": 0.653,
+        "rows": 1.0,
+        "run": 3,
+        "server_time_ms": 102.687
+      },
+      {
+        "buffers": {
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Hit Blocks": 1964,
+          "Shared Read Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0
+        },
+        "execution_time_ms": 102.278,
+        "planning_time_ms": 0.615,
+        "rows": 1.0,
+        "run": 4,
+        "server_time_ms": 102.278
+      },
+      {
+        "buffers": {
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Hit Blocks": 1964,
+          "Shared Read Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0
+        },
+        "execution_time_ms": 102.074,
+        "planning_time_ms": 0.652,
+        "rows": 1.0,
+        "run": 5,
+        "server_time_ms": 102.074
+      }
+    ],
+    "median_server_time_ms": 102.278,
+    "min_server_time_ms": 101.47,
+    "requested_runs": 5,
+    "sql": "SELECT count(e.cnpj_basico)\nFROM cnpj.estabelecimento AS e\nWHERE e.uf = 'SP'",
+    "stdev_server_time_ms": 0.475188173253503,
+    "warmups": 2
+  },
+  "condition": {
+    "command": "benchmark",
+    "environment": "lab",
+    "runs": 5,
+    "warmups": 2
+  },
+  "experiment_id": "ac1fb2b1a692a3ab",
+  "generated_at": "2026-11-22T18:48:27.651439+00:00",
+  "query": "SELECT count(e.cnpj_basico)\nFROM cnpj.estabelecimento AS e\nWHERE e.uf = 'SP';"
+}

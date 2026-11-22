@@ -1,0 +1,223 @@
+{
+  "after": {
+    "max_server_time_ms": 102.687,
+    "mean_server_time_ms": 102.2086,
+    "measurements": [
+      {
+        "buffers": {
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Hit Blocks": 1964,
+          "Shared Read Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0
+        },
+        "execution_time_ms": 102.534,
+        "planning_time_ms": 0.654,
+        "rows": 1.0,
+        "run": 1,
+        "server_time_ms": 102.534
+      },
+      {
+        "buffers": {
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Hit Blocks": 1964,
+          "Shared Read Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0
+        },
+        "execution_time_ms": 101.47,
+        "planning_time_ms": 0.643,
+        "rows": 1.0,
+        "run": 2,
+        "server_time_ms": 101.47
+      },
+      {
+        "buffers": {
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Hit Blocks": 1964,
+          "Shared Read Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0
+        },
+        "execution_time_ms": 102.687,
+        "planning_time_ms": 0.653,
+        "rows": 1.0,
+        "run": 3,
+        "server_time_ms": 102.687
+      },
+      {
+        "buffers": {
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Hit Blocks": 1964,
+          "Shared Read Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0
+        },
+        "execution_time_ms": 102.278,
+        "planning_time_ms": 0.615,
+        "rows": 1.0,
+        "run": 4,
+        "server_time_ms": 102.278
+      },
+      {
+        "buffers": {
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Hit Blocks": 1964,
+          "Shared Read Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0
+        },
+        "execution_time_ms": 102.074,
+        "planning_time_ms": 0.652,
+        "rows": 1.0,
+        "run": 5,
+        "server_time_ms": 102.074
+      }
+    ],
+    "median_server_time_ms": 102.278,
+    "min_server_time_ms": 101.47,
+    "requested_runs": 5,
+    "sql": "SELECT count(e.cnpj_basico)\nFROM cnpj.estabelecimento AS e\nWHERE e.uf = 'SP'",
+    "stdev_server_time_ms": 0.475188173253503,
+    "warmups": 2
+  },
+  "baseline": {
+    "max_server_time_ms": 139.913,
+    "mean_server_time_ms": 135.7042,
+    "measurements": [
+      {
+        "buffers": {
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Hit Blocks": 2024,
+          "Shared Read Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0
+        },
+        "execution_time_ms": 133.182,
+        "planning_time_ms": 0.592,
+        "rows": 1.0,
+        "run": 1,
+        "server_time_ms": 133.182
+      },
+      {
+        "buffers": {
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Hit Blocks": 2024,
+          "Shared Read Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0
+        },
+        "execution_time_ms": 133.322,
+        "planning_time_ms": 0.571,
+        "rows": 1.0,
+        "run": 2,
+        "server_time_ms": 133.322
+      },
+      {
+        "buffers": {
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Hit Blocks": 2024,
+          "Shared Read Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0
+        },
+        "execution_time_ms": 132.535,
+        "planning_time_ms": 0.587,
+        "rows": 1.0,
+        "run": 3,
+        "server_time_ms": 132.535
+      },
+      {
+        "buffers": {
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Hit Blocks": 2024,
+          "Shared Read Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0
+        },
+        "execution_time_ms": 139.569,
+        "planning_time_ms": 0.598,
+        "rows": 1.0,
+        "run": 4,
+        "server_time_ms": 139.569
+      },
+      {
+        "buffers": {
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Hit Blocks": 2024,
+          "Shared Read Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0
+        },
+        "execution_time_ms": 139.913,
+        "planning_time_ms": 0.58,
+        "rows": 1.0,
+        "run": 5,
+        "server_time_ms": 139.913
+      }
+    ],
+    "median_server_time_ms": 133.322,
+    "min_server_time_ms": 132.535,
+    "requested_runs": 5,
+    "sql": "SELECT count(e.cnpj_basico)\nFROM cnpj.estabelecimento AS e\nWHERE e.uf = 'SP'",
+    "stdev_server_time_ms": 3.6990159096711137,
+    "warmups": 2
+  },
+  "comparison": {
+    "after_median_ms": 102.278,
+    "baseline_median_ms": 133.322,
+    "explanation": "Mediana antes: 133.322 ms; depois: 102.278 ms; variação: 23.28%; speedup: 1.304x.",
+    "limitations": [
+      "A comparação não demonstra causalidade nem significância estatística.",
+      "A métrica comparada é o tempo mediano de execução da query em milissegundos."
+    ],
+    "reduction_percent": 23.28497922323397,
+    "result_rows_equal": true,
+    "speedup": 1.303525684898023,
+    "sql": "SELECT count(e.cnpj_basico)\nFROM cnpj.estabelecimento AS e\nWHERE e.uf = 'SP'",
+    "status": "MELHORIA"
+  },
+  "condition": {
+    "command": "benchmark-comparison",
+    "environment": "lab",
+    "runs": 5,
+    "warmups": 2
+  },
+  "experiment_id": "b27034a741a44a28",
+  "generated_at": "2026-11-22T18:48:43.999774+00:00",
+  "limitations": [
+    "A comparação não demonstra causalidade nem significância estatística.",
+    "A métrica comparada é o tempo mediano de execução da query em milissegundos."
+  ],
+  "query": "SELECT count(e.cnpj_basico)\nFROM cnpj.estabelecimento AS e\nWHERE e.uf = 'SP'"
+}

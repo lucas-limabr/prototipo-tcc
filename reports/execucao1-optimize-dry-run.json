@@ -1,8 +1,4 @@
 {
-  "after": null,
-  "applied_indexes": [],
-  "baseline": null,
-  "comparison": null,
   "condition": {
     "command": "optimize",
     "environment": "lab",
@@ -13,35 +9,40 @@
   ],
   "estimated_plan": [
     {
-      "JIT": {
-        "Functions": 4,
-        "Options": {
-          "Deforming": true,
-          "Expressions": true,
-          "Inlining": false,
-          "Optimization": false
-        }
-      },
       "Plan": {
-        "Alias": "e",
         "Async Capable": false,
-        "Filter": "(uf = 'SP'::bpchar)",
-        "Node Type": "Seq Scan",
+        "Node Type": "Aggregate",
         "Parallel Aware": false,
-        "Plan Rows": 1343967,
-        "Plan Width": 9,
-        "Relation Name": "estabelecimento",
-        "Startup Cost": 0.0,
-        "Total Cost": 170539.48
+        "Partial Mode": "Simple",
+        "Plan Rows": 1,
+        "Plan Width": 8,
+        "Plans": [
+          {
+            "Alias": "e",
+            "Async Capable": false,
+            "Filter": "(uf = 'SP'::bpchar)",
+            "Node Type": "Seq Scan",
+            "Parallel Aware": false,
+            "Parent Relationship": "Outer",
+            "Plan Rows": 28067,
+            "Plan Width": 9,
+            "Relation Name": "estabelecimento",
+            "Startup Cost": 0.0,
+            "Total Cost": 3274.0
+          }
+        ],
+        "Startup Cost": 3344.17,
+        "Strategy": "Plain",
+        "Total Cost": 3344.18
       }
     }
   ],
-  "experiment_id": "f42313e2944f6dc3",
-  "generated_at": "2026-10-19T23:26:23.462719+00:00",
+  "experiment_id": "8df9d0b28520c6fe",
+  "generated_at": "2026-11-22T18:48:24.767397+00:00",
   "limitations": [
     "O modo dry-run não modifica o banco."
   ],
-  "query": "SELECT e.cnpj_basico FROM cnpj.estabelecimento AS e WHERE e.uf = 'SP'",
+  "query": "SELECT count(e.cnpj_basico)\nFROM cnpj.estabelecimento AS e\nWHERE e.uf = 'SP';",
   "recommendations": [
     {
       "access_method": "btree",

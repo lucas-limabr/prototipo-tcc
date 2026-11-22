@@ -1,0 +1,60 @@
+{
+  "condition": {
+    "command": "analyze",
+    "environment": "lab"
+  },
+  "estimated_plan": [
+    {
+      "Plan": {
+        "Async Capable": false,
+        "Node Type": "Aggregate",
+        "Parallel Aware": false,
+        "Partial Mode": "Simple",
+        "Plan Rows": 1,
+        "Plan Width": 8,
+        "Plans": [
+          {
+            "Alias": "e",
+            "Async Capable": false,
+            "Filter": "(uf = 'SP'::bpchar)",
+            "Node Type": "Seq Scan",
+            "Parallel Aware": false,
+            "Parent Relationship": "Outer",
+            "Plan Rows": 28067,
+            "Plan Width": 9,
+            "Relation Name": "estabelecimento",
+            "Startup Cost": 0.0,
+            "Total Cost": 3274.0
+          }
+        ],
+        "Startup Cost": 3344.17,
+        "Strategy": "Plain",
+        "Total Cost": 3344.18
+      }
+    }
+  ],
+  "experiment_id": "b6290cc947334e9e",
+  "generated_at": "2026-11-22T18:48:22.335693+00:00",
+  "limitations": [
+    "A análise não altera a estrutura do banco."
+  ],
+  "query": "SELECT count(e.cnpj_basico)\nFROM cnpj.estabelecimento AS e\nWHERE e.uf = 'SP';",
+  "recommendations": [
+    {
+      "access_method": "btree",
+      "columns": [
+        "uf"
+      ],
+      "evidence": "(uf = 'SP'::bpchar)",
+      "evidence_kind": "Filter",
+      "justification": "Recomendar índice B-tree simples em cnpj.estabelecimento (uf) por evidência de Filter.",
+      "limitations": [
+        "A recomendação é preliminar e deve ser confirmada por medições.",
+        "Não são gerados índices compostos automaticamente."
+      ],
+      "schema": "cnpj",
+      "status": "RECOMENDADO",
+      "table": "estabelecimento"
+    }
+  ]
+}
