@@ -1,216 +1,211 @@
 {
   "after": {
-    "errors": [],
-    "max_server_time_ms": 1207.228,
-    "mean_server_time_ms": 1203.0432,
+    "max_server_time_ms": 144.973,
+    "mean_server_time_ms": 144.741,
     "measurements": [
       {
         "buffers": {
           "Local Hit Blocks": 0,
           "Local Read Blocks": 0,
           "Shared Dirtied Blocks": 0,
-          "Shared Hit Blocks": 3,
-          "Shared Read Blocks": 45749,
+          "Shared Hit Blocks": 1125,
+          "Shared Read Blocks": 0,
           "Shared Written Blocks": 0,
           "Temp Read Blocks": 0,
           "Temp Written Blocks": 0
         },
-        "execution_time_ms": 1198.37,
-        "planning_time_ms": 0.476,
-        "rows": 146956.0,
-        "run": 1,
-        "server_time_ms": 1198.37
-      },
-      {
-        "buffers": {
-          "Local Hit Blocks": 0,
-          "Local Read Blocks": 0,
-          "Shared Dirtied Blocks": 0,
-          "Shared Hit Blocks": 3,
-          "Shared Read Blocks": 45749,
-          "Shared Written Blocks": 0,
-          "Temp Read Blocks": 0,
-          "Temp Written Blocks": 0
-        },
-        "execution_time_ms": 1206.604,
+        "execution_time_ms": 144.821,
         "planning_time_ms": 0.558,
-        "rows": 146956.0,
+        "rows": 41804.0,
+        "run": 1,
+        "server_time_ms": 144.821
+      },
+      {
+        "buffers": {
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Hit Blocks": 1125,
+          "Shared Read Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0
+        },
+        "execution_time_ms": 144.642,
+        "planning_time_ms": 0.574,
+        "rows": 41804.0,
         "run": 2,
-        "server_time_ms": 1206.604
+        "server_time_ms": 144.642
       },
       {
         "buffers": {
           "Local Hit Blocks": 0,
           "Local Read Blocks": 0,
           "Shared Dirtied Blocks": 0,
-          "Shared Hit Blocks": 3,
-          "Shared Read Blocks": 45749,
+          "Shared Hit Blocks": 1125,
+          "Shared Read Blocks": 0,
           "Shared Written Blocks": 0,
           "Temp Read Blocks": 0,
           "Temp Written Blocks": 0
         },
-        "execution_time_ms": 1201.793,
-        "planning_time_ms": 0.492,
-        "rows": 146956.0,
+        "execution_time_ms": 144.973,
+        "planning_time_ms": 0.552,
+        "rows": 41804.0,
         "run": 3,
-        "server_time_ms": 1201.793
+        "server_time_ms": 144.973
       },
       {
         "buffers": {
           "Local Hit Blocks": 0,
           "Local Read Blocks": 0,
           "Shared Dirtied Blocks": 0,
-          "Shared Hit Blocks": 3,
-          "Shared Read Blocks": 45749,
+          "Shared Hit Blocks": 1125,
+          "Shared Read Blocks": 0,
           "Shared Written Blocks": 0,
           "Temp Read Blocks": 0,
           "Temp Written Blocks": 0
         },
-        "execution_time_ms": 1201.221,
-        "planning_time_ms": 0.498,
-        "rows": 146956.0,
+        "execution_time_ms": 144.82,
+        "planning_time_ms": 0.643,
+        "rows": 41804.0,
         "run": 4,
-        "server_time_ms": 1201.221
+        "server_time_ms": 144.82
       },
       {
         "buffers": {
           "Local Hit Blocks": 0,
           "Local Read Blocks": 0,
           "Shared Dirtied Blocks": 0,
-          "Shared Hit Blocks": 3,
-          "Shared Read Blocks": 45749,
+          "Shared Hit Blocks": 1125,
+          "Shared Read Blocks": 0,
           "Shared Written Blocks": 0,
           "Temp Read Blocks": 0,
           "Temp Written Blocks": 0
         },
-        "execution_time_ms": 1207.228,
-        "planning_time_ms": 0.487,
-        "rows": 146956.0,
+        "execution_time_ms": 144.449,
+        "planning_time_ms": 0.539,
+        "rows": 41804.0,
         "run": 5,
-        "server_time_ms": 1207.228
+        "server_time_ms": 144.449
       }
     ],
-    "median_server_time_ms": 1201.793,
-    "min_server_time_ms": 1198.37,
+    "median_server_time_ms": 144.82,
+    "min_server_time_ms": 144.449,
     "requested_runs": 5,
-    "sql": "select e.razao_social   \nfrom cnpj.empresa e \nwhere e.porte = 3\norder by e.razao_social",
-    "stdev_server_time_ms": 3.7720703466399628,
+    "sql": "select e.razao_social\nfrom cnpj.empresa e\nwhere e.porte = 1",
+    "stdev_server_time_ms": 0.200953974830058,
     "warmups": 2
   },
-  "applied_indexes": [],
   "baseline": {
-    "errors": [],
-    "max_server_time_ms": 1284.126,
-    "mean_server_time_ms": 1069.6862,
+    "max_server_time_ms": 153.354,
+    "mean_server_time_ms": 146.6816,
     "measurements": [
       {
         "buffers": {
           "Local Hit Blocks": 0,
           "Local Read Blocks": 0,
           "Shared Dirtied Blocks": 0,
-          "Shared Hit Blocks": 16091,
-          "Shared Read Blocks": 38050,
+          "Shared Hit Blocks": 1088,
+          "Shared Read Blocks": 0,
           "Shared Written Blocks": 0,
           "Temp Read Blocks": 0,
           "Temp Written Blocks": 0
         },
-        "execution_time_ms": 1284.126,
-        "planning_time_ms": 0.532,
-        "rows": 146956.0,
+        "execution_time_ms": 153.354,
+        "planning_time_ms": 0.549,
+        "rows": 41804.0,
         "run": 1,
-        "server_time_ms": 1284.126
+        "server_time_ms": 153.354
       },
       {
         "buffers": {
           "Local Hit Blocks": 0,
           "Local Read Blocks": 0,
           "Shared Dirtied Blocks": 0,
-          "Shared Hit Blocks": 16123,
-          "Shared Read Blocks": 38018,
+          "Shared Hit Blocks": 1088,
+          "Shared Read Blocks": 0,
           "Shared Written Blocks": 0,
           "Temp Read Blocks": 0,
           "Temp Written Blocks": 0
         },
-        "execution_time_ms": 1259.539,
-        "planning_time_ms": 0.519,
-        "rows": 146956.0,
+        "execution_time_ms": 143.949,
+        "planning_time_ms": 0.513,
+        "rows": 41804.0,
         "run": 2,
-        "server_time_ms": 1259.539
+        "server_time_ms": 143.949
       },
       {
         "buffers": {
           "Local Hit Blocks": 0,
           "Local Read Blocks": 0,
           "Shared Dirtied Blocks": 0,
-          "Shared Hit Blocks": 16182,
-          "Shared Read Blocks": 37959,
+          "Shared Hit Blocks": 1088,
+          "Shared Read Blocks": 0,
           "Shared Written Blocks": 0,
           "Temp Read Blocks": 0,
           "Temp Written Blocks": 0
         },
-        "execution_time_ms": 1008.729,
-        "planning_time_ms": 0.431,
-        "rows": 146956.0,
+        "execution_time_ms": 144.458,
+        "planning_time_ms": 0.482,
+        "rows": 41804.0,
         "run": 3,
-        "server_time_ms": 1008.729
+        "server_time_ms": 144.458
       },
       {
         "buffers": {
           "Local Hit Blocks": 0,
           "Local Read Blocks": 0,
           "Shared Dirtied Blocks": 0,
-          "Shared Hit Blocks": 16197,
-          "Shared Read Blocks": 37944,
+          "Shared Hit Blocks": 1088,
+          "Shared Read Blocks": 0,
           "Shared Written Blocks": 0,
           "Temp Read Blocks": 0,
           "Temp Written Blocks": 0
         },
-        "execution_time_ms": 894.07,
-        "planning_time_ms": 0.326,
-        "rows": 146956.0,
+        "execution_time_ms": 145.395,
+        "planning_time_ms": 0.474,
+        "rows": 41804.0,
         "run": 4,
-        "server_time_ms": 894.07
+        "server_time_ms": 145.395
       },
       {
         "buffers": {
           "Local Hit Blocks": 0,
           "Local Read Blocks": 0,
           "Shared Dirtied Blocks": 0,
-          "Shared Hit Blocks": 16281,
-          "Shared Read Blocks": 37860,
+          "Shared Hit Blocks": 1088,
+          "Shared Read Blocks": 0,
           "Shared Written Blocks": 0,
           "Temp Read Blocks": 0,
           "Temp Written Blocks": 0
         },
-        "execution_time_ms": 901.967,
-        "planning_time_ms": 0.32,
-        "rows": 146956.0,
+        "execution_time_ms": 146.252,
+        "planning_time_ms": 0.492,
+        "rows": 41804.0,
         "run": 5,
-        "server_time_ms": 901.967
+        "server_time_ms": 146.252
       }
     ],
-    "median_server_time_ms": 1008.729,
-    "min_server_time_ms": 894.07,
+    "median_server_time_ms": 145.395,
+    "min_server_time_ms": 143.949,
     "requested_runs": 5,
-    "sql": "select e.razao_social   \nfrom cnpj.empresa e \nwhere e.porte = 3\norder by e.razao_social",
-    "stdev_server_time_ms": 190.20717223254226,
+    "sql": "select e.razao_social\nfrom cnpj.empresa e\nwhere e.porte = 1",
+    "stdev_server_time_ms": 3.8331552668787134,
     "warmups": 2
   },
   "comparison": {
-    "after_median_ms": 1201.793,
-    "baseline_median_ms": 1008.729,
-    "created_indexes": [],
-    "explanation": "Mediana antes: 1008.729 ms; depois: 1201.793 ms; variação: -19.14%; speedup: 0.839x.",
+    "after_median_ms": 144.82,
+    "baseline_median_ms": 145.395,
+    "explanation": "Mediana antes: 145.395 ms; depois: 144.820 ms; variação: 0.40%; speedup: 1.004x.",
     "limitations": [
       "A comparação não demonstra causalidade nem significância estatística.",
-      "A métrica comparada é o tempo mediano do servidor em milissegundos."
+      "A métrica comparada é o tempo mediano de execução da query em milissegundos."
     ],
-    "plan_changed": null,
-    "reduction_percent": -19.139332764300406,
+    "reduction_percent": 0.39547439733141926,
     "result_rows_equal": true,
-    "speedup": 0.8393533661787015,
-    "sql": "select e.razao_social   \nfrom cnpj.empresa e \nwhere e.porte = 3\norder by e.razao_social",
-    "status": "REGRESSAO"
+    "speedup": 1.0039704460709848,
+    "sql": "select e.razao_social\nfrom cnpj.empresa e\nwhere e.porte = 1",
+    "status": "SEM_MUDANCA_RELEVANTE"
   },
   "condition": {
     "command": "benchmark-comparison",
@@ -218,13 +213,11 @@
     "runs": 5,
     "warmups": 2
   },
-  "estimated_plan": null,
-  "experiment_id": "5b29d84abfd9fdf2",
-  "generated_at": "2026-10-26T19:01:32.464239+00:00",
+  "experiment_id": "3b6233520cca5a04",
+  "generated_at": "2026-11-23T12:31:50.051994+00:00",
   "limitations": [
     "A comparação não demonstra causalidade nem significância estatística.",
-    "A métrica comparada é o tempo mediano do servidor em milissegundos."
+    "A métrica comparada é o tempo mediano de execução da query em milissegundos."
   ],
-  "query": "select e.razao_social   \nfrom cnpj.empresa e \nwhere e.porte = 3\norder by e.razao_social",
-  "recommendations": []
+  "query": "select e.razao_social\nfrom cnpj.empresa e\nwhere e.porte = 1"
 }
