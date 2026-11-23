@@ -91,9 +91,7 @@ index-optimizer analyze --query \
   > reports/analyze-filtro-uf.json
 ```
 
-Os diretórios `data/` e `reports/` são ignorados pelo Git. A evidência histórica
-do experimento final, versionada no projeto, está em
-[experimentos/fase15-filtro-uf.json](experimentos/fase15-filtro-uf.json).
+Os diretórios `data/` e `reports/` são ignorados pelo Git.
 
 ### Gerar ou aplicar recomendações
 
@@ -163,20 +161,6 @@ identificadores delimitados pelo driver.
 O comando sempre imprime JSON com `status`, `removed_count` e
 `removed_indexes`. Quando não há índices elegíveis, termina com sucesso e
 informa `removed_count: 0`; não há procedimento genérico destrutivo de reset.
-
-O resultado registrado em
-[experimentos/fase15-filtro-uf.json](experimentos/fase15-filtro-uf.json) é
-evidência histórica de um único experimento: o índice
-`ixo_estabelecimento_uf_idx_f71e437d` foi associado a medianas de 854,946 ms
-antes e 802,909 ms depois, redução observada de 6,09%. Esses números não são
-garantidos nem reproduzidos automaticamente por uma nova execução. Consulte
-[METODOLOGIA_EXPERIMENTO.md](METODOLOGIA_EXPERIMENTO.md) para protocolo,
-condições e limitações.
-
-Para uma comparação pré/pós realmente nova, comece de uma cópia de segurança ou
-snapshot apropriado, ou prepare o laboratório isolado por um processo seguro e
-documentado pelo DBA. Não há neste guia um procedimento genérico destrutivo de
-reset.
 
 ### Códigos de saída do CLI principal
 

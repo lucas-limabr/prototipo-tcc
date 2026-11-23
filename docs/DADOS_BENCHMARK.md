@@ -22,8 +22,7 @@ snapshot experimental.
 
 Em 2026-10-13, a referência `2026-10` estava acessível e continha 37 arquivos,
 com aproximadamente 7 GiB compactados no total. A seleção `--parts 1` foi
-estimada em aproximadamente 2,26 GiB compactados e foi baixada em
-`/home/lucaslima/cnpj-data/2026-10` com `manifest.json` e SHA-256 por arquivo.
+estimada em aproximadamente 2,26 GiB compactados e foi baixada em diretório indicado pelo usuário.
 
 ## Modelo carregado
 
@@ -100,7 +99,3 @@ centenas de gigabytes de armazenamento temporário em algumas referências e nã
   resultam em `NULL`; campos vazios opcionais permanecem ausentes.
 - A validação de contagem não é uma garantia de completude nacional quando
   apenas uma partição foi importada.
-- A primeira tentativa de carga foi interrompida pela indisponibilidade
-  temporária do daemon Docker. A carga foi posteriormente retomada e concluída;
-  as contagens efetivas estão registradas no manifesto e no status do
-  desenvolvimento.

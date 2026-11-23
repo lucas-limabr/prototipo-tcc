@@ -1,17 +1,17 @@
 # index-optimizer
 
-Protótipo de pesquisa do TCC **“Otimização de Bancos de Dados Relacionais: Indexação
-Automatizada para Maximização de Performance”**. Analisa consultas `SELECT` no PostgreSQL,
+Protótipo de pesquisa do TCC **“Otimização de bancos de bados relacionais: indexação
+automatizada para maximização de desempenho**. Analisa consultas `SELECT` no PostgreSQL,
 recomenda índices por regras explícitas e, apenas em um banco de laboratório, permite
 aplicá-los e comparar o desempenho antes/depois.
 
-> Estado atual: Fase 15 concluída. O protótipo possui validação, análise de
-> planos, recomendações, benchmark, aplicação controlada e relatórios.
-> Veja [docs/STATUS_DESENVOLVIMENTO.md](docs/STATUS_DESENVOLVIMENTO.md).
+Está sendo disponibilizado o link para o [arquivo do Google Colab](https://colab.research.google.com/drive/192kWEeJSX7XeJjQ4W7asqXpaRh0guU8j) referente ao protótipo. Ele reúne, de forma enxuta, todas as explicações, instruções e códigos necessários à execução dos experimentos, abrangendo os procedimentos realizados em cada um deles.
+
+Também está incluído neste repositório o artigo científico de TCC escrito por mim, que será apresentado em minha instituição de ensino, o Instituto Federal de Educação, Ciência e Tecnologia do Sudeste de Minas Gerais - Campus Juiz de Fora. [Artigo científico](article/Artigo_científico_TCC_2_final.pdf)
 
 ## Requisitos
 - Python ≥ 3.11
-- Docker (a partir da Fase 3)
+- Docker
 
 ## Instalação (desenvolvimento)
 ```bash
@@ -45,8 +45,6 @@ estabilidade das medições nas duas condições. O rótulo e a cor indicam `MEL
 `REGRESSAO`, `SEM_MUDANCA_RELEVANTE` ou `INCONCLUSIVO`. Relatórios produzidos
 apenas por `analyze`, `benchmark` ou `optimize` não têm automaticamente as duas
 etapas necessárias: a aplicação de índices não executa benchmark antes/depois.
-O relatório agregado do experimento versionado em
-`docs/experimentos/fase15-filtro-uf.json` também pode ser usado como entrada.
 
 ## Massa CNPJ
 
@@ -73,20 +71,11 @@ pytest -m integration  # testes de integração (exigem PostgreSQL do laboratór
 
 2. Confirme a referência e as contagens da massa conforme
    [docs/DADOS_BENCHMARK.md](docs/DADOS_BENCHMARK.md).
-3. Consulte o protocolo, as consultas, as condições e as limitações em
-   [docs/METODOLOGIA_EXPERIMENTO.md](docs/METODOLOGIA_EXPERIMENTO.md).
-4. Consulte o resultado agregado em
-   [docs/experimentos/fase15-filtro-uf.json](docs/experimentos/fase15-filtro-uf.json).
-5. Para reproduzir uma medição, use o ambiente virtual e mantenha
+
+3. Para reproduzir uma medição, use o ambiente virtual e mantenha
    `IXO_ALLOWED_SCHEMAS=cnpj`; a aplicação de índices deve ser uma ação explícita
    no laboratório, nunca em produção.
 
 Os tempos registrados são evidências desta execução, não uma promessa de ganho
 para toda consulta. O relatório distingue recomendações, índices aplicados e
 resultados inconclusivos.
-
-## Documentação
-- [Arquitetura](agents/docs/ARQUITETURA.md)
-- [Decisões técnicas](agents/docs/DECISOES_TECNICAS.md)
-- [Plano de execução](agents/docs/PLANO_EXECUCAO_PROTOTIPO_INDEXACAO_AUTOMATIZADA.md)
-- [Metodologia do experimento](docs/METODOLOGIA_EXPERIMENTO.md)

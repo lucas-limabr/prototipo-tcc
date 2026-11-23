@@ -29,3 +29,5 @@ data/
 .vscode/
 .DS_Store
 /.github/agents
+
+docs/STATUS_DESENVOLVIMENTO.md
